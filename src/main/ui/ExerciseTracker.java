@@ -28,19 +28,24 @@ public class ExerciseTracker {
                 running = false;
                 System.out.println("See you!");
             } else {
-                switch (userChoice) {
-                    case 'a': record();
-                    break;
-                    case 'r': getRec();
-                    break;
-                    case 'p': progress();
-                    break;
-                    case 'c': changeGoal();
-                    break;
-                    default: System.out.println("Your choice is invalid");
-                }
+                dealWithUserChoice(userChoice);
             }
 
+
+        }
+    }
+
+    private void dealWithUserChoice(int userChoice) {
+        switch (userChoice) {
+            case 'a': record();
+                break;
+            case 'r': getRec();
+                break;
+            case 'p': progress();
+                break;
+            case 'c': changeGoal();
+                break;
+            default: System.out.println("Your choice is invalid");
         }
     }
 
