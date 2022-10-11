@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+// Class to test ExerciseLog class
 class ExerciseLogTest {
     private ExerciseLog exLog;
     private Exercise ex3;
