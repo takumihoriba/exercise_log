@@ -1,5 +1,6 @@
 package ui;
 
+import model.Exercise;
 import model.ExerciseLog;
 
 import java.util.Scanner;
@@ -9,13 +10,20 @@ public class ExerciseTracker {
     private ExerciseLog log;
     private Scanner input;
 
+    // EFFECTS: start the ExerciseLog
     public ExerciseTracker() {
-        runExerciseLog();
+        startExerciseLog();
     }
 
-    public void runExerciseLog() {
+    // MODIFIES: this
+    // EFFECTS: set the flag variable running true; instantiates ExerciseLog and Scanner, and call progress().
+    // Ask user for input until exit option is selected.
+    public void startExerciseLog() {
         boolean running = true;
-        setup();
+
+        log = new ExerciseLog();
+        input = new Scanner(System.in);
+
         progress();
 
         while (running) {
@@ -33,6 +41,7 @@ public class ExerciseTracker {
         }
     }
 
+    // REQUIRES: userChoice should be one of the characters in the menu
     private void dealWithUserChoice(int userChoice) {
         switch (userChoice) {
             case 'a': record();
@@ -67,7 +76,9 @@ public class ExerciseTracker {
         System.out.print("How many minutes did you do it?: ");
         int time = input.nextInt();
         input.nextLine();
-        log.logExercise(time, activity);
+        Exercise ex = new Exercise(time, activity);
+//        log.logExercise(time, activity);
+        log.logExercise(ex);
         System.out.println("Your record has been saved successfully");
     }
 
@@ -79,11 +90,6 @@ public class ExerciseTracker {
         System.out.println("c -> change your goal");
         System.out.println("e -> exit this application");
         System.out.println("-------------------------");
-    }
-
-    public void setup() {
-        log = new ExerciseLog();
-        input = new Scanner(System.in);
     }
 
     public void progress() {
