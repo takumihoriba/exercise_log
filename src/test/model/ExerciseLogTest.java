@@ -123,6 +123,14 @@ class ExerciseLogTest {
     }
 
     @Test
+    void testDistanceToGoalDifferentGoal() {
+        exLog.setGoal(1200);
+        exLog.logExercise(300, "running");
+
+        assertEquals(1200-300, exLog.distanceToGoal());
+    }
+
+    @Test
     void testDistanceToGoalMulti() {
         exLog.logExercise(300, "running");
         exLog.logExercise(100, "swimming");
@@ -132,6 +140,7 @@ class ExerciseLogTest {
 
         assertEquals(1000-660, exLog.distanceToGoal());
     }
+
 
     // setGoal, getSports, getGoal are getters/setter
 }
