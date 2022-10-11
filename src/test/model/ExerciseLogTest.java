@@ -70,41 +70,27 @@ class ExerciseLogTest {
 
     @Test
     void testRecommendAllSame() {
-        Exercise ex3 = new Exercise(100, "cycling");
-        Exercise ex4 = new Exercise(100, "swimming");
-        Exercise ex5 = new Exercise(100, "running");
+        exLog.logExercise(ex1);
+        exLog.logExercise(ex2);
         exLog.logExercise(ex3);
-        exLog.logExercise(ex4);
-        exLog.logExercise(ex5);
 
         assertEquals("running", exLog.recommend());
     }
 
     @Test
     void testRecommendTwoCandidates1() {
-        Exercise ex5 = new Exercise(200, "running");
-        Exercise ex4 = new Exercise(100, "swimming");
-        Exercise ex3 = new Exercise(100, "cycling");
-
-
         exLog.logExercise(ex3);
-        exLog.logExercise(ex4);
-        exLog.logExercise(ex5);
+        exLog.logExercise(ex2);
+        exLog.logExercise(ex21);
 
         assertEquals("swimming", exLog.recommend());
-
     }
 
     @Test
     void testRecommendTwoCandidates2() {
-        Exercise ex5 = new Exercise(100, "running");
-        Exercise ex4 = new Exercise(200, "swimming");
-        Exercise ex3 = new Exercise(100, "cycling");
-
+        exLog.logExercise(ex1);
+        exLog.logExercise(ex22);
         exLog.logExercise(ex3);
-        exLog.logExercise(ex4);
-        exLog.logExercise(ex5);
-
 
         assertEquals("running", exLog.recommend());
     }
