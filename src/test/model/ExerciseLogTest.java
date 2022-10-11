@@ -37,7 +37,7 @@ class ExerciseLogTest {
     }
 
     @Test
-    void testLogExcerciseMulti() {
+    void testLogExerciseMulti() {
         exLog.logExercise(100, "cycling");
         exLog.logExercise(200, "swimming");
 
