@@ -2,8 +2,6 @@ package ui;
 
 import model.ExerciseLog;
 
-import java.sql.SQLOutput;
-import java.util.Locale;
 import java.util.Scanner;
 
 public class ExerciseTracker {
@@ -53,7 +51,7 @@ public class ExerciseTracker {
         System.out.print("Enter your new goal (in minutes): ");
         int newGoal = input.nextInt();
         input.nextLine();
-        log.modifyGoal(newGoal);
+        log.setGoal(newGoal);
     }
 
 

@@ -23,11 +23,13 @@ public class ExerciseLog {
         goal = 1000;
     }
 
+
+
+
     // REQUIRES: String activity must be an element of sports.
     // MODIFIES: this
     // EFFECTS: add time and name of activity to the lists.
     public void logExercise(int time, String activity) {
-
         this.time.add(time);
         this.activity.add(activity);
     }
@@ -85,11 +87,9 @@ public class ExerciseLog {
     //REQUIRES: new goal must be positive
     //MODIFIES: this
     //EFFECTS: change goal to a new quantity
-    public void modifyGoal(int newGoal) {
+    public void setGoal(int newGoal) {
         this.goal = newGoal;
     }
-
-
 
     public List<String> getSports() {
         return sports;
@@ -97,6 +97,18 @@ public class ExerciseLog {
 
     public int getGoal() {
         return this.goal;
+    }
+
+    public List<Integer> getTime() {
+        return time;
+    }
+
+    public List<String> getActivity() {
+        return activity;
+    }
+
+    public List<Integer> getTimeByActivity() {
+        return timeByActivity;
     }
 
 
