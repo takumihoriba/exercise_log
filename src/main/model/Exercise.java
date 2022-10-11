@@ -14,15 +14,15 @@ public class Exercise {
         return activity;
     }
 
-    public void setActivity(String activity) {
-        this.activity = activity;
-    }
+//    public void setActivity(String activity) {
+//        this.activity = activity;
+//    }
 
     public int getTime() {
         return time;
     }
 
-    public void setTime(int time) {
-        this.time = time;
-    }
+//    public void setTime(int time) {
+//        this.time = time;
+//    }
 }
