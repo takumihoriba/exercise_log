@@ -1,5 +1,6 @@
 package model;
 
+// This is a class that holds time and activity.
 public class Exercise {
     private int time;
     private String activity;

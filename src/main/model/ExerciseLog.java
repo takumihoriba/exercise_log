@@ -27,12 +27,6 @@ public class ExerciseLog {
         goal = 1000;
     }
 
-
-//    public void logExercise(int time, String activity) {
-//        this.time.add(time);
-//        this.activity.add(activity);
-//    }
-
     // MODIFIES: this
     // EFFECTS: add an Exercise object to the list exercises.
     public void logExercise(Exercise ex) {
@@ -58,23 +52,6 @@ public class ExerciseLog {
     }
 
 
-//    public void calculateTimeByActivity() {
-//        timeByActivity = new ArrayList<>();
-//        for (String s: sports) {
-//            timeByActivity.add(0);
-//        }
-//        for (int i = 0; i < time.size(); i++) {
-//            String activityAtIth = activity.get(i);
-//            for (int j = 0; j < sports.size(); j++) {
-//                String sportAtJth = sports.get(j);
-//                if (activityAtIth.equals(sportAtJth)) {
-//                    int updatedTime = timeByActivity.get(j) + time.get(i);
-//                    timeByActivity.set(j, updatedTime);
-//                }
-//            }
-//        }
-//    }
-
     //MODIFIES: this
     //EFFECTS: modifies timeByActivity by finding the sum of minutes for each exercise
     public void calculateTimeByActivity() {
@@ -93,16 +70,6 @@ public class ExerciseLog {
             }
         }
     }
-
-
-
-//    public int distanceToGoal() {
-//        int sum = 0;
-//        for (Integer i: this.time) {
-//            sum += i;
-//        }
-//        return goal - sum;
-//    }
 
     //EFFECTS: returns integer representing the difference between sum of all minutes(user already spent) and goal
     public int distanceToGoal() {
@@ -130,14 +97,6 @@ public class ExerciseLog {
     public int getGoal() {
         return this.goal;
     }
-
-//    public List<Integer> getTime() {
-//        return time;
-//    }
-
-//    public List<String> getActivity() {
-//        return activity;
-//    }
 
     public List<Integer> getTimeByActivity() {
         return timeByActivity;

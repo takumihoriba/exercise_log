@@ -32,8 +32,6 @@ class ExerciseLogTest {
 
     @Test
     void testConstructor() {
-//        assertEquals(0, exLog.getTime().size());
-//        assertEquals(0, exLog.getActivity().size());
         assertEquals(0, exLog.getExercises().size());
         assertEquals(3, exLog.getSports().size());
         assertEquals(0, exLog.getTimeByActivity().size());
@@ -47,10 +45,6 @@ class ExerciseLogTest {
 
     @Test
     void testLogExerciseSingle() {
-//        exLog.logExercise(100, "cycling");
-//        assertEquals(100, exLog.getTime().get(0));
-//        assertEquals("cycling", exLog.getActivity().get(0));
-
         exLog.logExercise(ex3);
         assertEquals(100, exLog.getExercises().get(0).getTime());
         assertEquals("cycling", exLog.getExercises().get(0).getActivity());
@@ -59,10 +53,6 @@ class ExerciseLogTest {
 
     @Test
     void testLogExerciseMulti() {
-//        exLog.logExercise(100, "cycling");
-//        exLog.logExercise(200, "swimming");
-
-
         exLog.logExercise(ex3);
         exLog.logExercise(ex22);
         assertEquals(100, exLog.getExercises().get(0).getTime());
@@ -70,11 +60,6 @@ class ExerciseLogTest {
         assertEquals(200, exLog.getExercises().get(1).getTime());
         assertEquals("swimming", exLog.getExercises().get(1).getActivity());
 
-
-//        assertEquals(100, exLog.getTime().get(0));
-//        assertEquals("cycling", exLog.getActivity().get(0));
-//        assertEquals(200, exLog.getTime().get(1));
-//        assertEquals("swimming", exLog.getActivity().get(1));
     }
 
 
@@ -116,9 +101,6 @@ class ExerciseLogTest {
         Exercise ex4 = new Exercise(200, "swimming");
         Exercise ex3 = new Exercise(100, "cycling");
 
-//        exLog.logExercise(100, "running");
-//        exLog.logExercise(200, "swimming");
-//        exLog.logExercise(100, "cycling");
         exLog.logExercise(ex3);
         exLog.logExercise(ex4);
         exLog.logExercise(ex5);
@@ -147,20 +129,11 @@ class ExerciseLogTest {
         exLog.logExercise(ex22);
         exLog.logExercise(ex23);
 
-//        exLog.logExercise(300, "running");
-//        exLog.logExercise(100, "swimming");
-//        exLog.logExercise(200, "cycling");
-
         assertEquals("running", exLog.recommend());
     }
 
     @Test
     void testCalculateTimeByActivity() {
-//        exLog.logExercise(300, "running");
-//        exLog.logExercise(100, "swimming");
-//        exLog.logExercise(200, "cycling");
-//        exLog.logExercise(10, "swimming");
-//        exLog.logExercise(50, "cycling");
         exLog.logExercise(ex1);
         exLog.logExercise(ex2);
         exLog.logExercise(ex3);
@@ -177,28 +150,19 @@ class ExerciseLogTest {
 
     @Test
     void testDistanceToGoalSingle() {
-//        exLog.logExercise(300, "running");
         exLog.logExercise(ex2);
-
         assertEquals(1000-100, exLog.distanceToGoal());
     }
 
     @Test
     void testDistanceToGoalDifferentGoal() {
         exLog.setGoal(1200);
-//        exLog.logExercise(300, "running");
         exLog.logExercise(ex2);
         assertEquals(1200-100, exLog.distanceToGoal());
     }
 
     @Test
     void testDistanceToGoalMulti() {
-//        exLog.logExercise(300, "running");
-//        exLog.logExercise(100, "swimming");
-//        exLog.logExercise(200, "cycling");
-//        exLog.logExercise(10, "swimming");
-//        exLog.logExercise(50, "cycling");
-
         exLog.logExercise(ex1);
         exLog.logExercise(ex22);
 
