@@ -3,6 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+// This is the whole log that contains all the data of the user.
 public class ExerciseLog {
     private List<Integer> time;
     private List<String> activity;
@@ -11,7 +12,8 @@ public class ExerciseLog {
     private int goal;
 
     // REQUIRES: none
-    // EFFECTS: instantiates 3 lists and set default value for goal and sports
+    // EFFECTS: instantiates time, activity,sports, and timeByActivity lists;
+    // Set goal to 1000(min) as default; inputs three sports (running, swimming, cycling) to sports by default.
     public ExerciseLog() {
         time = new ArrayList<>();
         activity = new ArrayList<>();
@@ -23,10 +25,7 @@ public class ExerciseLog {
         goal = 1000;
     }
 
-
-
-
-    // REQUIRES: String activity must be an element of sports.
+    // REQUIRES: String activity must be an element of sports, time must be a positive integer.
     // MODIFIES: this
     // EFFECTS: add time and name of activity to the lists.
     public void logExercise(int time, String activity) {
@@ -36,7 +35,7 @@ public class ExerciseLog {
 
     //REQUIRES: none.
     //MODIFIES: none.
-    //EFFECTS: get the sport that the user did the least.
+    //EFFECTS: returns the sport that the user spend the shortest time on.
     public String recommend() {
         calculateTimeByActivity();
         int min = this.goal;
@@ -74,8 +73,7 @@ public class ExerciseLog {
 
     //REQUIRES: none.
     //MODIFIES: none.
-    //EFFECTS: return integer representing the difference
-    // between sum of all minutes and goal
+    //EFFECTS: returns integer representing the difference between sum of all minutes(user already spent) and goal
     public int distanceToGoal() {
         int sum = 0;
         for (Integer i: this.time) {
@@ -84,12 +82,14 @@ public class ExerciseLog {
         return goal - sum;
     }
 
-    //REQUIRES: new goal must be positive
+    //REQUIRES: New goal must be positive
     //MODIFIES: this
-    //EFFECTS: change goal to a new quantity
+    //EFFECTS: Changes goal to a new quantity
     public void setGoal(int newGoal) {
         this.goal = newGoal;
     }
+
+    // below are simple getter methods
 
     public List<String> getSports() {
         return sports;

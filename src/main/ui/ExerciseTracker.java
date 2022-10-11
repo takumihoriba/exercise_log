@@ -4,6 +4,7 @@ import model.ExerciseLog;
 
 import java.util.Scanner;
 
+// UI for exercise log application.
 public class ExerciseTracker {
     private ExerciseLog log;
     private Scanner input;
@@ -14,13 +15,12 @@ public class ExerciseTracker {
 
     public void runExerciseLog() {
         boolean running = true;
-        char userChoice = '0';
         setup();
         progress();
 
         while (running) {
             showMenu();
-            userChoice = input.nextLine().toLowerCase().charAt(0);
+            char userChoice = input.nextLine().toLowerCase().charAt(0);
 
             if (userChoice == 'e') {
                 running = false;
@@ -76,8 +76,8 @@ public class ExerciseTracker {
         System.out.println("a -> add a new log to your record");
         System.out.println("r -> get a recommendation");
         System.out.println("p -> show progress");
-        System.out.println("e -> exit this application");
         System.out.println("c -> change your goal");
+        System.out.println("e -> exit this application");
         System.out.println("-------------------------");
     }
 
