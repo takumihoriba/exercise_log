@@ -41,8 +41,9 @@ public class ExerciseTracker {
         }
     }
 
-    // REQUIRES: userChoice should be one of the characters in the menu
-    private void dealWithUserChoice(int userChoice) {
+    // EFFECTS: depending on the provided argument userChoice, calls appropriate methods to meet the user's need.
+    // If the character doesn't match the available options, print to tell the user's choice is invalid.
+    private void dealWithUserChoice(char userChoice) {
         switch (userChoice) {
             case 'a': record();
                 break;
@@ -56,6 +57,7 @@ public class ExerciseTracker {
         }
     }
 
+    // EFFECTS: asks new goal and call setGoal() to change the current goal.
     private void changeGoal() {
         System.out.print("Enter your new goal (in minutes): ");
         int newGoal = input.nextInt();
@@ -63,12 +65,16 @@ public class ExerciseTracker {
         log.setGoal(newGoal);
     }
 
-
+    // EFFECTS: calls recommend() to get a recommendation and prints out it.
     private void getRec() {
         System.out.println("thinking based on your record....");
         System.out.println("How about " + log.recommend() + " ?");
     }
 
+    // REQUIRES: User inputs valid values, for example, time must be a positive int; activity must be an element of
+    // the sports list.
+    // EFFECTS: gets inputs for time and activity from user and instantiates Exercise class.
+    // If time is not a positive integer, it will say so to the user and doesn't log.
     private void record() {
         System.out.println("what did you do? Pick one from the following: ");
         System.out.println(log.getSports().toString());
@@ -76,10 +82,13 @@ public class ExerciseTracker {
         System.out.print("How many minutes did you do it?: ");
         int time = input.nextInt();
         input.nextLine();
-        Exercise ex = new Exercise(time, activity);
-//        log.logExercise(time, activity);
-        log.logExercise(ex);
-        System.out.println("Your record has been saved successfully");
+        if (time > 0) {
+            Exercise ex = new Exercise(time, activity);
+            log.logExercise(ex);
+            System.out.println("Your record has been saved successfully");
+        } else {
+            System.out.println("time must be a positive integer");
+        }
     }
 
     private void showMenu() {

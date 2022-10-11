@@ -27,22 +27,21 @@ public class ExerciseLog {
         goal = 1000;
     }
 
-    // REQUIRES: String activity must be an element of sports, time must be a positive integer.
-    // MODIFIES: this
-    // EFFECTS: add time and name of activity to the lists.
+
 //    public void logExercise(int time, String activity) {
 //        this.time.add(time);
 //        this.activity.add(activity);
 //    }
 
+    // MODIFIES: this
+    // EFFECTS: add an Exercise object to the list exercises.
     public void logExercise(Exercise ex) {
         this.exercises.add(ex);
     }
 
 
     //EFFECTS: returns the sport that the user spend the shortest time on.
-    // If all the sports have the same time, the priority will be given to the first sport in the sports list.
-    // If some sports have the same time, the sport that appears earlier in the sports list will be selected.
+    // If multiple sports have the same time, the sport that appears earliest in the sports list will be selected.
     public String recommend() {
         calculateTimeByActivity();
         int min = this.goal;
@@ -58,8 +57,7 @@ public class ExerciseLog {
         return sport;
     }
 
-    //MODIFIES: this
-    //EFFECTS: modifies timeByActivity by finding the sum of minutes for each exercise
+
 //    public void calculateTimeByActivity() {
 //        timeByActivity = new ArrayList<>();
 //        for (String s: sports) {
@@ -77,6 +75,8 @@ public class ExerciseLog {
 //        }
 //    }
 
+    //MODIFIES: this
+    //EFFECTS: modifies timeByActivity by finding the sum of minutes for each exercise
     public void calculateTimeByActivity() {
         timeByActivity = new ArrayList<>();
         for (String s: sports) {
@@ -95,7 +95,7 @@ public class ExerciseLog {
     }
 
 
-    //EFFECTS: returns integer representing the difference between sum of all minutes(user already spent) and goal
+
 //    public int distanceToGoal() {
 //        int sum = 0;
 //        for (Integer i: this.time) {
@@ -103,6 +103,8 @@ public class ExerciseLog {
 //        }
 //        return goal - sum;
 //    }
+
+    //EFFECTS: returns integer representing the difference between sum of all minutes(user already spent) and goal
     public int distanceToGoal() {
         int sum = 0;
         int size = exercises.size();
@@ -112,7 +114,7 @@ public class ExerciseLog {
         return goal - sum;
     }
 
-    //REQUIRES: New goal must be positive
+    //REQUIRES: New goal must be a positive integer
     //MODIFIES: this
     //EFFECTS: Changes goal to a new quantity
     public void setGoal(int newGoal) {
