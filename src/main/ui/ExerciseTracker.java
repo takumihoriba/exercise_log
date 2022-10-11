@@ -77,6 +77,8 @@ public class ExerciseTracker {
         System.out.println("r -> get a recommendation");
         System.out.println("p -> show progress");
         System.out.println("e -> exit this application");
+        System.out.println("c -> change your goal");
+        System.out.println("------------------------");
     }
 
     public void setup() {

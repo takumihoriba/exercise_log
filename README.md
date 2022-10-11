@@ -9,6 +9,6 @@ This application will keep track of activities a user enters and suggest activit
 In this project:
 
 - As a user, I want to be able to add exercise to this application *for multiple times*
-- As a user, I want to be able to see recommendation of exercise when I start this application
-- As a user, I want to be able to set weekly goal
-- As a user, I want to be able to see how far I am from achieving weekly goal
+- As a user, I want to be able to see recommendation of exercise when I request
+- As a user, I want to be able to set/modify a goal
+- As a user, I want to be able to see how far I am from achieving that goal
