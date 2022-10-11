@@ -72,13 +72,13 @@ public class ExerciseTracker {
     }
 
     private void showMenu() {
-        System.out.println("-----------------------");
+        System.out.println("-------------------------");
         System.out.println("a -> add a new log to your record");
         System.out.println("r -> get a recommendation");
         System.out.println("p -> show progress");
         System.out.println("e -> exit this application");
         System.out.println("c -> change your goal");
-        System.out.println("------------------------");
+        System.out.println("-------------------------");
     }
 
     public void setup() {
