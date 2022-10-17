@@ -6,8 +6,6 @@ import java.util.List;
 // This is the whole log that contains all the data of the user.
 public class ExerciseLog {
 
-    //    private List<Integer> time;
-//    private List<String> activity;
     private List<Exercise> exercises;
     private List<String> sports;
     private List<Sport> sportList;
@@ -17,8 +15,6 @@ public class ExerciseLog {
     // EFFECTS: instantiates time, activity,sports, and timeByActivity lists;
     // Set goal to 1000(min) as default; inputs three sports (running, swimming, cycling) to sports by default.
     public ExerciseLog() {
-//        time = new ArrayList<>();
-//        activity = new ArrayList<>();
         sports = new ArrayList<>();
         exercises = new ArrayList<>();
         timeByActivity = new ArrayList<>();
@@ -147,5 +143,9 @@ public class ExerciseLog {
 
     public List<Exercise> getExercises() {
         return exercises;
+    }
+
+    public List<Sport> getSportList() {
+        return sportList;
     }
 }

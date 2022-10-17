@@ -2,6 +2,7 @@ package ui;
 
 import model.Exercise;
 import model.ExerciseLog;
+import model.Sport;
 
 import java.util.Scanner;
 
@@ -45,6 +46,8 @@ public class ExerciseTracker {
     // If the character doesn't match the available options, print to tell the user's choice is invalid.
     private void dealWithUserChoice(char userChoice) {
         switch (userChoice) {
+            case 's': addSports();
+                break;
             case 'a': record();
                 break;
             case 'r': getRec();
@@ -55,6 +58,19 @@ public class ExerciseTracker {
                 break;
             default: System.out.println("Your choice is invalid");
         }
+    }
+
+    private void addSports() {
+        System.out.println("Enter new sport: ");
+        String name = input.nextLine();
+        Sport sport = new Sport(name);
+        boolean success = log.addSport(sport);
+        if (success) {
+            System.out.println("Successfully added");
+        } else {
+            System.out.println("Add failed.");
+        }
+        printAvailableSports();
     }
 
     // EFFECTS: asks new goal and call setGoal() to change the current goal.
@@ -68,7 +84,7 @@ public class ExerciseTracker {
     // EFFECTS: calls recommend() to get a recommendation and prints out it.
     private void getRec() {
         System.out.println("thinking based on your record....");
-        System.out.println("How about " + log.recommend() + " ?");
+        System.out.println("How about " + log.recommend2() + " ?");
     }
 
     // REQUIRES: User inputs valid values, for example, time must be a positive int; activity must be an element of
@@ -77,7 +93,7 @@ public class ExerciseTracker {
     // If time is not a positive integer, it will say so to the user and doesn't log.
     private void record() {
         System.out.println("what did you do? Pick one from the following: ");
-        System.out.println(log.getSports().toString());
+        printAvailableSports();
         String activity = input.nextLine();
         System.out.print("How many minutes did you do it?: ");
         int time = input.nextInt();
@@ -97,6 +113,7 @@ public class ExerciseTracker {
         System.out.println("r -> get a recommendation");
         System.out.println("p -> show progress");
         System.out.println("c -> change your goal");
+        System.out.println("s -> add a new sport");
         System.out.println("e -> exit this application");
         System.out.println("-------------------------");
     }
@@ -107,8 +124,16 @@ public class ExerciseTracker {
             System.out.println("You reached your goal. Congrats!");
         } else {
             System.out.println(log.distanceToGoal() + " min to your goal.");
-            System.out.println("Available sports:" + log.getSports().toString());
+//            System.out.println("Available sports:" + log.getSports().toString());
+            printAvailableSports();
         }
+    }
 
+    public void printAvailableSports() {
+        System.out.print("Available sports: ");
+        for (Sport s: log.getSportList()) {
+            System.out.print(s.getName() + " ");
+        }
+        System.out.println();
     }
 }
