@@ -39,6 +39,14 @@ class ExerciseLogTest {
         assertEquals("swimming", exLog.getSports().get(1));
         assertEquals("cycling", exLog.getSports().get(2));
 
+        assertEquals(3, exLog.getSportList().size());
+        assertEquals("running", exLog.getSportList().get(0).getName());
+        assertEquals(0, exLog.getSportList().get(0).getTime());
+        assertEquals("swimming", exLog.getSportList().get(1).getName());
+        assertEquals(0, exLog.getSportList().get(1).getTime());
+        assertEquals("cycling", exLog.getSportList().get(2).getName());
+        assertEquals(0, exLog.getSportList().get(2).getTime());
+
     }
 
     @Test
