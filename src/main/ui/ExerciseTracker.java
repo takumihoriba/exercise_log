@@ -60,6 +60,8 @@ public class ExerciseTracker {
         }
     }
 
+    //EFFECTS: creates a Sport object from user's input and calls addSport() method of ExerciseLog.
+    // Tells if the addition was completed or not, show the available sports to user.
     private void addSports() {
         System.out.println("Enter new sport: ");
         String name = input.nextLine();
@@ -84,7 +86,7 @@ public class ExerciseTracker {
     // EFFECTS: calls recommend() to get a recommendation and prints out it.
     private void getRec() {
         System.out.println("thinking based on your record....");
-        System.out.println("How about " + log.recommend2() + " ?");
+        System.out.println("How about " + log.recommendASport() + " ?");
     }
 
     // REQUIRES: User inputs valid values, for example, time must be a positive int; activity must be an element of
@@ -107,6 +109,7 @@ public class ExerciseTracker {
         }
     }
 
+    // EFFECTS: show available options user can choose
     private void showMenu() {
         System.out.println("-------------------------");
         System.out.println("a -> add a new log to your record");
@@ -118,6 +121,8 @@ public class ExerciseTracker {
         System.out.println("-------------------------");
     }
 
+    // EFFECTS: show the current progress of user by showing their goal and the distance to thier goal.
+    // Also prints out available sports as a reference
     public void progress() {
         System.out.println("Your current goal: " + log.getGoal());
         if (log.distanceToGoal() <= 0) {
@@ -129,6 +134,7 @@ public class ExerciseTracker {
         }
     }
 
+    // EFFECTS: prints out available sports
     public void printAvailableSports() {
         System.out.print("Available sports: ");
         for (Sport s: log.getSportList()) {
