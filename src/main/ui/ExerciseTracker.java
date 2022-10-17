@@ -37,8 +37,6 @@ public class ExerciseTracker {
             } else {
                 dealWithUserChoice(userChoice);
             }
-
-
         }
     }
 
@@ -129,7 +127,6 @@ public class ExerciseTracker {
             System.out.println("You reached your goal. Congrats!");
         } else {
             System.out.println(log.distanceToGoal() + " min to your goal.");
-//            System.out.println("Available sports:" + log.getSports().toString());
             printAvailableSports();
         }
     }
