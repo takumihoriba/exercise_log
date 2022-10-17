@@ -15,7 +15,6 @@ class ExerciseLogTest {
     private Exercise ex22;
     private Exercise ex23;
 
-
     @BeforeEach
     public void setup() {
         exLog = new ExerciseLog();

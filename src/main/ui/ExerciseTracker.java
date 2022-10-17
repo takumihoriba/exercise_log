@@ -21,12 +21,9 @@ public class ExerciseTracker {
     // Ask user for input until exit option is selected.
     public void startExerciseLog() {
         boolean running = true;
-
         log = new ExerciseLog();
         input = new Scanner(System.in);
-
         progress();
-
         while (running) {
             showMenu();
             char userChoice = input.nextLine().toLowerCase().charAt(0);
