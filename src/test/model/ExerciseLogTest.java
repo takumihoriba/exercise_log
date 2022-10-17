@@ -3,7 +3,7 @@ package model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 // Class to test ExerciseLog class
 class ExerciseLogTest {
@@ -26,9 +26,6 @@ class ExerciseLogTest {
         ex21 = new Exercise(200, "running");
         ex22 = new Exercise(200, "swimming");
         ex23 = new Exercise(200, "cycling");
-
-
-
     }
 
     @Test
@@ -109,6 +106,37 @@ class ExerciseLogTest {
 //        assertEquals("running", exLog.recommend());
 //    }
 
+    @Test
+    void testRecommend2Empty() {
+        assertEquals("running", exLog.recommend2());
+    }
+
+    @Test
+    void testRecommend2AllSame() {
+        exLog.logExercise(ex1);
+        exLog.logExercise(ex2);
+        exLog.logExercise(ex3);
+
+        assertEquals("running", exLog.recommend2());
+    }
+
+    @Test
+    void testRecommend2TwoCandidates1() {
+        exLog.logExercise(ex3);
+        exLog.logExercise(ex2);
+        exLog.logExercise(ex21);
+
+        assertEquals("swimming", exLog.recommend2());
+    }
+
+    @Test
+    void testRecommend2TwoCandidates2() {
+        exLog.logExercise(ex1);
+        exLog.logExercise(ex22);
+        exLog.logExercise(ex3);
+
+        assertEquals("running", exLog.recommend2());
+    }
 
     @Test
     void testRecommendSingleCandidate() {
@@ -116,7 +144,7 @@ class ExerciseLogTest {
         exLog.logExercise(ex22);
         exLog.logExercise(ex23);
 
-        assertEquals("running", exLog.recommend());
+        assertEquals("running", exLog.recommend2());
     }
 
     @Test
@@ -156,6 +184,23 @@ class ExerciseLogTest {
         assertEquals(1000-300, exLog.distanceToGoal());
     }
 
+    @Test
+    void testAddSportSame() {
+        Sport s1 = new Sport("running");
+        Sport s2 = new Sport("swimming");
+
+        assertFalse(exLog.addSport(s1));
+        assertFalse(exLog.addSport(s2));
+    }
+
+    @Test
+    void testAddSportDifferent() {
+        Sport s1 = new Sport("dead lift");
+        Sport s2 = new Sport("dead lift");
+
+        assertTrue(exLog.addSport(s1));
+        assertFalse(exLog.addSport(s2));
+    }
 
     // setGoal, getSports, getGoal are getters/setter
 }

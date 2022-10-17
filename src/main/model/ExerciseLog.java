@@ -10,6 +10,7 @@ public class ExerciseLog {
 //    private List<String> activity;
     private List<Exercise> exercises;
     private List<String> sports;
+    private List<Sport> sportList;
     private List<Integer> timeByActivity;
     private int goal;
 
@@ -25,12 +26,21 @@ public class ExerciseLog {
         sports.add("swimming");
         sports.add("cycling");
         goal = 1000;
+        sportList = new ArrayList<>();
+        Sport run = new Sport("running");
+        Sport swim = new Sport("swimming");
+        Sport cycle = new Sport("cycling");
+        sportList.add(run);
+        sportList.add(swim);
+        sportList.add(cycle);
+
     }
 
     // MODIFIES: this
     // EFFECTS: add an Exercise object to the list exercises.
     public void logExercise(Exercise ex) {
         this.exercises.add(ex);
+        calculateTimeBySport(ex);
     }
 
 
@@ -48,6 +58,20 @@ public class ExerciseLog {
             }
         }
         String sport = sports.get(minIdx);
+        return sport;
+    }
+
+    public String recommend2() {
+        int min = this.goal;
+        int minIdx = 0;
+        int size = sportList.size();
+        for (int i = 0; i < size; i++) {
+            if (sportList.get(i).getTime() < min) {
+                min = sportList.get(i).getTime();
+                minIdx = i;
+            }
+        }
+        String sport = sportList.get(minIdx).getName();
         return sport;
     }
 
@@ -71,6 +95,15 @@ public class ExerciseLog {
         }
     }
 
+    public void calculateTimeBySport(Exercise ex) {
+        for (Sport s: sportList) {
+            if (s.getName().equals(ex.getActivity())) {
+                int currentTime = s.getTime();
+                s.setTime(currentTime + ex.getTime());
+            }
+        }
+    }
+
     //EFFECTS: returns integer representing the difference between sum of all minutes(user already spent) and goal
     public int distanceToGoal() {
         int sum = 0;
@@ -79,6 +112,16 @@ public class ExerciseLog {
             sum += exercises.get(i).getTime();
         }
         return goal - sum;
+    }
+
+    public boolean addSport(Sport s) {
+        for (Sport sport: sportList) {
+            if (sport.getName().equals(s.getName())) {
+                return false;
+            }
+        }
+        this.sportList.add(s);
+        return true;
     }
 
     //REQUIRES: New goal must be a positive integer
