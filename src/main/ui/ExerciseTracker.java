@@ -3,16 +3,26 @@ package ui;
 import model.Exercise;
 import model.ExerciseLog;
 import model.Sport;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
+// Citation: Main ideas of saving/reading json were taken from JsonSerializationDemo
 
 // UI for exercise log application.
 public class ExerciseTracker {
     private ExerciseLog log;
     private Scanner input;
+    private static final String JSON_STORE = "./data/log.json";
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
 
     // EFFECTS: start the ExerciseLog
     public ExerciseTracker() {
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
         startExerciseLog();
     }
 
@@ -50,6 +60,10 @@ public class ExerciseTracker {
             case 'p': progress();
                 break;
             case 'c': changeGoal();
+                break;
+            case 'w': saveExerciseLog();
+                break;
+            case 'l': loadExerciseLog();
                 break;
             default: System.out.println("Your choice is invalid");
         }
@@ -106,14 +120,15 @@ public class ExerciseTracker {
 
     // EFFECTS: show available options user can choose
     private void showMenu() {
-        System.out.println("-------------------------");
-        System.out.println("a -> add a new log to your record");
-        System.out.println("r -> get a recommendation");
-        System.out.println("p -> show progress");
-        System.out.println("c -> change your goal");
-        System.out.println("s -> add a new sport");
-        System.out.println("e -> exit this application");
-        System.out.println("-------------------------");
+        System.out.println("\nSelect from:");
+        System.out.println("\ta -> add a new log to your record");
+        System.out.println("\tr -> get a recommendation");
+        System.out.println("\tp -> show progress");
+        System.out.println("\tc -> change your goal");
+        System.out.println("\ts -> add a new sport");
+        System.out.println("\tw -> save your log to file");
+        System.out.println("\tl -> load your log from file");
+        System.out.println("\te -> exit this application");
     }
 
     // EFFECTS: show the current progress of user by showing their goal and the distance to thier goal.
@@ -135,5 +150,28 @@ public class ExerciseTracker {
             System.out.print(s.getName() + " ");
         }
         System.out.println();
+    }
+
+    // EFFECTS: writes the ExerciseLog to file
+    private void saveExerciseLog() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(log);
+            jsonWriter.close();
+            System.out.println("Saved your exercise log to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to the file: " + JSON_STORE);
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: loads ExerciseLog from file
+    private void loadExerciseLog() {
+        try {
+            log = jsonReader.read();
+            System.out.println("Loaded your exercise log from " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
+        }
     }
 }

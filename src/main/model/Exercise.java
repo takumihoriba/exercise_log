@@ -1,7 +1,10 @@
 package model;
 
+import org.json.JSONObject;
+import persistence.Writable;
+
 // This is a class that holds time and activity.
-public class Exercise {
+public class Exercise implements Writable {
     private int time;
     private String activity;
 
@@ -20,4 +23,10 @@ public class Exercise {
         return time;
     }
 
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("time", time);
+        json.put("activity", activity);
+        return json;
+    }
 }

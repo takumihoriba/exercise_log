@@ -1,10 +1,16 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.ArrayList;
 import java.util.List;
 
+
+
 // This is the whole log that contains all the data of the user.
-public class ExerciseLog {
+public class ExerciseLog implements Writable {
 
     private List<Exercise> exercises;
     private List<Sport> sportList;
@@ -72,10 +78,13 @@ public class ExerciseLog {
 
     // MODIFIES: this
     // EFFECTS: adds a sport if the sport is not already in sportList. Returns true if the sport is added,
-    // returns false otherwise.
+    // returns false otherwise. If the time of Sport is different, update that variable.
     public boolean addSport(Sport s) {
         for (Sport sport: sportList) {
-            if (sport.getName().equals(s.getName())) {
+            if (sport.getName().equals(s.getName()) && sport.getTime() == s.getTime()) {
+                return false;
+            } else if (sport.getName().equals(s.getName()) && sport.getTime() != s.getTime()) {
+                sport.setTime(s.getTime());
                 return false;
             }
         }
@@ -102,4 +111,32 @@ public class ExerciseLog {
     public List<Sport> getSportList() {
         return sportList;
     }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("exercises", exercisesToJson());
+        json.put("sportList", sportListToJson());
+        json.put("goal", this.goal);
+        return json;
+    }
+
+    private JSONArray exercisesToJson() {
+        JSONArray jsonArray = new JSONArray();
+        for (Exercise e: exercises) {
+            jsonArray.put(e.toJson());
+        }
+
+        return jsonArray;
+    }
+
+    private JSONArray sportListToJson() {
+        JSONArray jsonArray = new JSONArray();
+        for (Sport s: sportList) {
+            jsonArray.put(s.toJson());
+        }
+        return jsonArray;
+    }
+
+
 }

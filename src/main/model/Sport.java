@@ -1,7 +1,10 @@
 package model;
 
+import org.json.JSONObject;
+import persistence.Writable;
+
 // Holds name of sport and time spent on that sport
-public class Sport {
+public class Sport implements Writable {
     private String name;
     private int time;
 
@@ -11,6 +14,11 @@ public class Sport {
         this.name = name;
         this.time = 0;
     }
+
+//    public Sport(String name, int time) {
+//        this.name = name;
+//        this.time = time;
+//    }
 
     public String getName() {
         return name;
@@ -25,4 +33,10 @@ public class Sport {
     }
 
 
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        json.put("time", time);
+        return json;
+    }
 }
