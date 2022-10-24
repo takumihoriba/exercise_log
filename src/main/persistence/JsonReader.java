@@ -12,6 +12,10 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.stream.Stream;
 
+// Citation: Methods and structure of this class are from
+// https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+
+// Class to read ExerciseLog from JASON data stored in file
 public class JsonReader {
     private String source;
 
@@ -67,6 +71,8 @@ public class JsonReader {
         exerciseLog.addSport(sport);
     }
 
+    // MODIFIES: exerciseLog
+    // EFFECTS: extracts each Exercise object from JSON object, and call a method to store it in exerciseLog
     private void addExercises(ExerciseLog exerciseLog, JSONObject jsonObject) {
         JSONArray jsonArray = jsonObject.getJSONArray("exercises");
         for (Object json: jsonArray) {
@@ -76,6 +82,9 @@ public class JsonReader {
 
     }
 
+
+    // MODIFIES: exerciseLog
+    // EFFECTS: Creates an Exercise instance and adds it to the exerciseLog
     private void addOneExercise(ExerciseLog exerciseLog, JSONObject jsonObject) {
         int time = jsonObject.getInt("time");
         String activity = jsonObject.getString("activity");
