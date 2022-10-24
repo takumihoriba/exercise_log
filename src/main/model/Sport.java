@@ -15,11 +15,6 @@ public class Sport implements Writable {
         this.time = 0;
     }
 
-//    public Sport(String name, int time) {
-//        this.name = name;
-//        this.time = time;
-//    }
-
     public String getName() {
         return name;
     }

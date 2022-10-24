@@ -47,6 +47,8 @@ public class JsonReader {
         return exerciseLog;
     }
 
+    // MODIFIES: exerciseLog
+    // EFFECTS: extracts each Sport object from JSON object, and call a method to store it in exerciseLog
     private void addSportList(ExerciseLog exerciseLog, JSONObject jsonObject) {
         JSONArray jsonArray = jsonObject.getJSONArray("sportList");
         for (Object json: jsonArray) {
@@ -55,6 +57,8 @@ public class JsonReader {
         }
     }
 
+    // MODIFIES: exerciseLog
+    // EFFECTS: Creates a Sport instance and adds it to the exerciseLog
     private void addOneSport(ExerciseLog exerciseLog, JSONObject jsonObject) {
         int time = jsonObject.getInt("time");
         String name = jsonObject.getString("name");

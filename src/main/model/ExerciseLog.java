@@ -121,6 +121,7 @@ public class ExerciseLog implements Writable {
         return json;
     }
 
+    // EFFECTS: returns exercises in JSONArray
     private JSONArray exercisesToJson() {
         JSONArray jsonArray = new JSONArray();
         for (Exercise e: exercises) {
@@ -130,6 +131,7 @@ public class ExerciseLog implements Writable {
         return jsonArray;
     }
 
+    // EFFECTS: returns sportList in JSONArray
     private JSONArray sportListToJson() {
         JSONArray jsonArray = new JSONArray();
         for (Sport s: sportList) {
