@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 // Tests JsonReader
-public class JsonReaderTest {
+class JsonReaderTest {
 
     @Test
     void testReaderNonExistentFile() {

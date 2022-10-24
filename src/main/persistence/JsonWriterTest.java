@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 // Tests JsonWriter
-public class JsonWriterTest {
+class JsonWriterTest {
 
     @Test
     void testWriterInvalidFile() {
