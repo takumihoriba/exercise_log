@@ -81,10 +81,10 @@ public class ExerciseLog implements Writable {
     // returns false otherwise. If the time of Sport is different, update that variable.
     public boolean addSport(Sport s) {
         for (Sport sport: sportList) {
-            if (sport.getName().equals(s.getName()) && sport.getTime() == s.getTime()) {
-                return false;
-            } else if (sport.getName().equals(s.getName()) && sport.getTime() != s.getTime()) {
-                sport.setTime(s.getTime());
+            if (sport.getName().equals(s.getName())) {
+                if (sport.getTime() != s.getTime()) {
+                    sport.setTime(s.getTime());
+                }
                 return false;
             }
         }

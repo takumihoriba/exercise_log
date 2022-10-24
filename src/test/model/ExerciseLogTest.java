@@ -124,13 +124,21 @@ class ExerciseLogTest {
     }
 
     @Test
-    void testAddSportSame() {
+    void testAddSportsSameNameSameTime() {
         Sport s1 = new Sport("running");
         Sport s2 = new Sport("swimming");
 
         assertFalse(exLog.addSport(s1));
         assertFalse(exLog.addSport(s2));
     }
+
+    @Test
+    void testAddSportDifferentTime() {
+        Sport s1 = new Sport("running");
+        s1.setTime(150);
+        assertFalse(exLog.addSport(s1));
+    }
+
 
     @Test
     void testAddSportDifferent() {
