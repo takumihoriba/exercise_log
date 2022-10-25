@@ -1,3 +1,6 @@
+// Citation: Methods and structure of this class are from
+// https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+
 package persistence;
 
 import model.ExerciseLog;
@@ -9,8 +12,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-// Citation: Methods and structure of this class are from
-// https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+
 
 // Class to save Json data of ExerciseLog in file
 public class JsonWriter {

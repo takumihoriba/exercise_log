@@ -1,3 +1,5 @@
+// Citation: Main ideas of saving/reading json were taken from JsonSerializationDemo
+
 package ui;
 
 import model.Exercise;
@@ -9,7 +11,6 @@ import persistence.JsonWriter;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
-// Citation: Main ideas of saving/reading json were taken from JsonSerializationDemo
 
 // UI for exercise log application.
 public class ExerciseTracker {

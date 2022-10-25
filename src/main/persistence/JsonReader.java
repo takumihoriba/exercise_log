@@ -1,3 +1,5 @@
+// Citation: Methods and structure of this class are from
+// https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
 package persistence;
 
 import model.Exercise;
@@ -12,8 +14,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.stream.Stream;
 
-// Citation: Methods and structure of this class are from
-// https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+
 
 // Class to read ExerciseLog from JASON data stored in file
 public class JsonReader {
