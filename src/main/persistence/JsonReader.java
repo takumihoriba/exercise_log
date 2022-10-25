@@ -1,5 +1,6 @@
 // Citation: Methods and structure of this class are from
 // https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+
 package persistence;
 
 import model.Exercise;
