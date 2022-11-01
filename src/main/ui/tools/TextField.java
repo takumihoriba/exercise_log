@@ -48,16 +48,6 @@ public class TextField extends JPanel implements PropertyChangeListener {
 //        paymentLabel = new JLabel(paymentString);
         tillGoalLabel = new JLabel(tillGoalString);
 
-        //Create the text fields and set them up.
-//        amountField = new JFormattedTextField(amountFormat);
-//        amountField.setValue(new Double(amount));
-//        amountField.setColumns(10);
-//        amountField.addPropertyChangeListener("value", this);
-//
-//        rateField = new JFormattedTextField(percentFormat);
-//        rateField.setValue(new Double(rate));
-//        rateField.setColumns(10);
-//        rateField.addPropertyChangeListener("value", this);
 
         minutesField = new JFormattedTextField();
         minutesField.setValue(new Integer(minutes));
@@ -91,20 +81,20 @@ public class TextField extends JPanel implements PropertyChangeListener {
         labelPane.add(minutesLabel);
         labelPane.add(tillGoalLabel);
 
-
-        //Layout the text fields in a panel.
-        JPanel fieldPane = new JPanel(new GridLayout(0,1));
-//        fieldPane.add(amountField);
-//        fieldPane.add(rateField);
-        fieldPane.add(minutesField);
-//        fieldPane.add(paymentField);
-        fieldPane.add(tillGoalField);
-
-        //Put the panels in this panel, labels on left,
-        //text fields on right.
-        setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-        add(labelPane, BorderLayout.CENTER);
-        add(fieldPane, BorderLayout.LINE_END);
+//
+//        //Layout the text fields in a panel.
+//        JPanel fieldPane = new JPanel(new GridLayout(0,1));
+////        fieldPane.add(amountField);
+////        fieldPane.add(rateField);
+//        fieldPane.add(minutesField);
+////        fieldPane.add(paymentField);
+//        fieldPane.add(tillGoalField);
+//
+//        //Put the panels in this panel, labels on left,
+//        //text fields on right.
+//        setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+//        add(labelPane, BorderLayout.CENTER);
+//        add(fieldPane, BorderLayout.LINE_END);
     }
 
     /** Called when a field's "value" property changes. */
@@ -159,26 +149,7 @@ public class TextField extends JPanel implements PropertyChangeListener {
         });
     }
 
-    //Compute the monthly payment based on the loan amount,
-    //APR, and length of loan.
-    double computePayment(double loanAmt, double rate, int numPeriods) {
-        double I;
-        double partial1;
-        double denominator;
-        double answer;
 
-        numPeriods *= 12;        //get number of months
-        if (rate > 0.01) {
-            I = rate / 100.0 / 12.0;         //get monthly rate from annual
-            partial1 = Math.pow((1 + I), (0.0 - numPeriods));
-            denominator = (1 - partial1) / I;
-        } else { //rate ~= 0
-            denominator = numPeriods;
-        }
-
-        answer = (-1 * loanAmt) / denominator;
-        return answer;
-    }
 
     //Create and set up number formats. These objects also
     //parse numbers input by user.

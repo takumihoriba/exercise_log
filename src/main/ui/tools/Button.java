@@ -7,7 +7,9 @@ import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 
 public class Button extends JPanel implements ActionListener {
-    protected JButton b1, b2, b3;
+    protected JButton b1;
+    protected JButton b2;
+    protected JButton b3;
 
     public Button() {
         b1 = new JButton("Save");

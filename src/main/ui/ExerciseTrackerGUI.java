@@ -39,7 +39,7 @@ public class ExerciseTrackerGUI implements ActionListener {
     private JsonReader jsonReader;
 
 
-//    private JLabel label = new JLabel("AAAAAAAAAA");
+//    private JLabel label = new JLabel("A");
     private JFrame frame;
     private JPanel panel;
 
