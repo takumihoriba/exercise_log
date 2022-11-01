@@ -38,6 +38,8 @@ public class ExerciseTrackerGUI implements ActionListener {
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
 
+    private ImageIcon imageSave;
+    private ImageIcon imageLoad;
 
 //    private JLabel label = new JLabel("A");
     private JFrame frame;
@@ -105,17 +107,19 @@ public class ExerciseTrackerGUI implements ActionListener {
 
     private void setUpButtons() {
 //        ImageIcon saveIcon = new ImageIcon("save.png");
+        imageSave = new ImageIcon(getClass().getResource("./images/save_10.png"));
+//        JLabel imageLabel = new JLabel(image);
+//        panel.add(imageLabel);
+        imageLoad = new ImageIcon(getClass().getResource("./images/load_10.png"));
 
-
-
-        saveButton = new JButton("Save");
+        saveButton = new JButton("Save", imageSave);
         saveButton.setVerticalTextPosition(AbstractButton.CENTER);
         saveButton.setHorizontalTextPosition(AbstractButton.LEADING); //aka LEFT, for left-to-right locales
         saveButton.setMnemonic(KeyEvent.VK_D);
         saveButton.setActionCommand("save");
         saveButton.setEnabled(false);
 
-        loadButton = new JButton("Load");
+        loadButton = new JButton("Load", imageLoad);
         loadButton.setMnemonic(KeyEvent.VK_E);
         loadButton.setActionCommand("load");
 
