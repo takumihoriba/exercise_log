@@ -28,10 +28,10 @@ public class ExerciseTrackerGUI implements ActionListener {
     private JLabel minutesLabel;
     private static String minutesString = "Minutes exercised: ";
     private static String sportString = "Sport you did: ";
-    private static String availableSportsString = "Available sports: ";
+//    private static String availableSportsString = "Available sports: ";
 
     private JFormattedTextField minutesField;
-    private JFormattedTextField sportField;
+//    private JFormattedTextField sportField;
     private JComboBox sportMenu;
 
     private JLabel update;
@@ -46,7 +46,6 @@ public class ExerciseTrackerGUI implements ActionListener {
 
     private JTable historyTable;
 
-//    private JLabel label = new JLabel("A");
     private JFrame frame;
     private JPanel panel;
 
@@ -112,7 +111,7 @@ public class ExerciseTrackerGUI implements ActionListener {
         sportLabel = new JLabel(sportString);
         minutesField = new JFormattedTextField();
         minutesField.setBounds(10, 50, 80, 25);
-        sportField = new JFormattedTextField();
+//        sportField = new JFormattedTextField();
         // property change listener? maybe as needed
 
 //        minutesLabel.setLabelFor(minutesField);
@@ -223,9 +222,11 @@ public class ExerciseTrackerGUI implements ActionListener {
             System.out.println("dev purpose: distance to goal == " + exerciseLog.distanceToGoal());
 
             minutesField.setValue("");
-            sportField.setValue("");
+//            sportField.setValue("");
             saveButton.setEnabled(true);
             // I need to show graph or image or sth here.
+            // Maybe depending on time, change message, graphics?
+
 
         } catch (NumberFormatException e) {
             minutesField.setValue("");
