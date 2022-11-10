@@ -32,6 +32,7 @@ public class ExerciseTrackerGUI implements ActionListener {
 
     private JFormattedTextField minutesField;
     private JFormattedTextField sportField;
+    private JComboBox sportMenu;
 
     private JLabel update;
     private JLabel availableSports;
@@ -60,9 +61,9 @@ public class ExerciseTrackerGUI implements ActionListener {
         panel.setBorder(BorderFactory.createEmptyBorder(30, 30, 10, 30));
         panel.setLayout(new GridLayout(0, 2));
 
-        panel.add(new JLabel(availableSportsString));
-        availableSports = new JLabel(availableSportsToString());
-        panel.add(availableSports);
+//        panel.add(new JLabel(availableSportsString));
+//        availableSports = new JLabel(availableSportsToString());
+//        panel.add(availableSports);
 
         setUpTextFields();
         setUpButtons();
@@ -75,29 +76,17 @@ public class ExerciseTrackerGUI implements ActionListener {
         update = new JLabel("");
         panel.add(update);
 
-//        String[][] data = {
-//                { "Kundan Kumar Jha", "4031", "CSE" },
-//                { "Anand Jha", "6014", "IT" }
-//        };
-//
-//        // Column Names
-//        String[] columnNames = { "Name", "Roll Number", "Department" };
-
-        // Initializing the JTable
-//        JTable j = new JTable(data, columnNames);
-//        j.setBounds(30, 40, 200, 300);
-
-        // adding it to JScrollPane
-//        JScrollPane sp = new JScrollPane(j);
-//        panel.add(sp);
-//        panel.add(j);
-
-//        availableSports = new JLabel("");
-//        panel.add(availableSports);
         frame.pack();
         frame.setVisible(true);
 
 
+    }
+
+    private void setUpDropdownList() {
+        sportMenu = new JComboBox(availableSportsToArray());
+        sportMenu.setSelectedIndex(0);
+        sportMenu.addActionListener(this);
+        panel.add(sportMenu);
     }
 
     private String availableSportsToString() {
@@ -106,6 +95,16 @@ public class ExerciseTrackerGUI implements ActionListener {
             stringBuilder.append(s.getName() + "  ");
         }
         return stringBuilder.toString();
+    }
+
+    private String[] availableSportsToArray() {
+        List<Sport> sportList = exerciseLog.getSportList();
+        int size = sportList.size();
+        String[] array = new String[size];
+        for (int i = 0; i < size; i++) {
+            array[i] = sportList.get(i).getName();
+        }
+        return array;
     }
 
     private void setUpTextFields() {
@@ -121,7 +120,9 @@ public class ExerciseTrackerGUI implements ActionListener {
 //        sportLabel.setLabelFor(sportField);
 
         panel.add(sportLabel);
-        panel.add(sportField);
+//        panel.add(sportField);
+        setUpDropdownList();
+
         panel.add(minutesLabel);
         panel.add(minutesField);
     }
@@ -155,11 +156,11 @@ public class ExerciseTrackerGUI implements ActionListener {
         logButton.addActionListener(this);
         historyButton.addActionListener(this);
 
+        panel.add(historyButton);
+        panel.add(logButton);
+
         panel.add(saveButton);
         panel.add(loadButton);
-        panel.add(logButton);
-        panel.add(historyButton);
-
     }
 
 
@@ -206,7 +207,8 @@ public class ExerciseTrackerGUI implements ActionListener {
     }
 
     private void logTheExercise() {
-        String sportName = sportField.getText();
+//        String sportName = sportField.getText();
+        String sportName = (String) sportMenu.getSelectedItem();
         System.out.println(sportName);
         System.out.println("a");
 
