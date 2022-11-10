@@ -1,14 +1,27 @@
 {
     "goal": 1000,
-    "exercises": [],
+    "exercises": [
+        {
+            "activity": "running",
+            "time": 100
+        },
+        {
+            "activity": "swimming",
+            "time": 200
+        },
+        {
+            "activity": "running",
+            "time": 2
+        }
+    ],
     "sportList": [
         {
             "name": "running",
-            "time": 0
+            "time": 102
         },
         {
             "name": "swimming",
-            "time": 0
+            "time": 200
         },
         {
             "name": "cycling",

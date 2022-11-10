@@ -15,6 +15,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.List;
 
 public class ExerciseTrackerGUI implements ActionListener {
 //    private ExerciseTracker exTracker;
@@ -22,6 +23,7 @@ public class ExerciseTrackerGUI implements ActionListener {
     private JButton saveButton;
     private JButton loadButton;
     private JButton logButton;
+    private JButton historyButton;
     private JLabel sportLabel;
     private JLabel minutesLabel;
     private static String minutesString = "Minutes exercised: ";
@@ -40,6 +42,8 @@ public class ExerciseTrackerGUI implements ActionListener {
 
     private ImageIcon imageSave;
     private ImageIcon imageLoad;
+
+    private JTable historyTable;
 
 //    private JLabel label = new JLabel("A");
     private JFrame frame;
@@ -70,6 +74,23 @@ public class ExerciseTrackerGUI implements ActionListener {
 
         update = new JLabel("");
         panel.add(update);
+
+//        String[][] data = {
+//                { "Kundan Kumar Jha", "4031", "CSE" },
+//                { "Anand Jha", "6014", "IT" }
+//        };
+//
+//        // Column Names
+//        String[] columnNames = { "Name", "Roll Number", "Department" };
+
+        // Initializing the JTable
+//        JTable j = new JTable(data, columnNames);
+//        j.setBounds(30, 40, 200, 300);
+
+        // adding it to JScrollPane
+//        JScrollPane sp = new JScrollPane(j);
+//        panel.add(sp);
+//        panel.add(j);
 
 //        availableSports = new JLabel("");
 //        panel.add(availableSports);
@@ -113,26 +134,31 @@ public class ExerciseTrackerGUI implements ActionListener {
         imageLoad = new ImageIcon(getClass().getResource("./images/load_10.png"));
 
         saveButton = new JButton("Save", imageSave);
-        saveButton.setVerticalTextPosition(AbstractButton.CENTER);
-        saveButton.setHorizontalTextPosition(AbstractButton.LEADING); //aka LEFT, for left-to-right locales
-        saveButton.setMnemonic(KeyEvent.VK_D);
+//        saveButton.setVerticalTextPosition(AbstractButton.CENTER);
+//        saveButton.setHorizontalTextPosition(AbstractButton.LEADING); //aka LEFT, for left-to-right locales
+//        saveButton.setMnemonic(KeyEvent.VK_D);
         saveButton.setActionCommand("save");
         saveButton.setEnabled(false);
 
         loadButton = new JButton("Load", imageLoad);
-        loadButton.setMnemonic(KeyEvent.VK_E);
+//        loadButton.setMnemonic(KeyEvent.VK_E);
         loadButton.setActionCommand("load");
 
         logButton = new JButton("Log");
         logButton.setActionCommand("log");
 
+        historyButton = new JButton("Show history");
+        historyButton.setActionCommand("history");
+
         saveButton.addActionListener(this);
         loadButton.addActionListener(this);
         logButton.addActionListener(this);
+        historyButton.addActionListener(this);
 
         panel.add(saveButton);
         panel.add(loadButton);
         panel.add(logButton);
+        panel.add(historyButton);
 
     }
 
@@ -143,17 +169,40 @@ public class ExerciseTrackerGUI implements ActionListener {
         String actionCommand = e.getActionCommand();
 
         if ("save".equals(actionCommand)) {
-            // Save somehow
             saveToFile();
         } else if ("load".equals(actionCommand)) {
             saveButton.setEnabled(true);
-            // load somehow
             loadFromFile();
         } else if ("log".equals(actionCommand)) {
-            saveButton.setEnabled(true);
-            // log(record) the data somehow
+//            saveButton.setEnabled(true);
             logTheExercise();
+        } else if ("history".equals(actionCommand)) {
+            showHistory();
         }
+    }
+
+    private void showHistory() {
+        String[][] data = generateDataArray();
+
+        // Column Names
+        String[] columnNames = { "Sport", "Time(minutes)"};
+
+        historyTable = new JTable(data, columnNames);
+        JOptionPane.showMessageDialog(panel, new JScrollPane(historyTable));
+    }
+
+    private String[][] generateDataArray() {
+        int row = exerciseLog.getExercises().size();
+        List<Exercise> exercises = exerciseLog.getExercises();
+        String[][] array = new String[row][2];
+        for (int i = 0; i < row; i++) {
+            // sports col
+            array[i][0] = exercises.get(i).getActivity();
+            // time col
+            array[i][1] = Integer.toString(exercises.get(i).getTime());
+        }
+
+        return array;
     }
 
     private void logTheExercise() {
@@ -171,9 +220,13 @@ public class ExerciseTrackerGUI implements ActionListener {
             update.setText("successfully logged");
             System.out.println("dev purpose: distance to goal == " + exerciseLog.distanceToGoal());
 
+            minutesField.setValue("");
+            sportField.setValue("");
+            saveButton.setEnabled(true);
             // I need to show graph or image or sth here.
 
         } catch (NumberFormatException e) {
+            minutesField.setValue("");
             update.setText("minutes must be an integer");
         }
     }
@@ -183,6 +236,7 @@ public class ExerciseTrackerGUI implements ActionListener {
             exerciseLog = jsonReader.read();
             System.out.println("Loaded your exercise log from " + JSON_STORE);
             System.out.println(exerciseLog.distanceToGoal());
+
         } catch (IOException e) {
             System.out.println("Unable to read from file: " + JSON_STORE);
         }
