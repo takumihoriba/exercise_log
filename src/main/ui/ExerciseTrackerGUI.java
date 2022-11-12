@@ -12,13 +12,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 
 
-
+// class that takes care of GUI.
 public class ExerciseTrackerGUI extends JFrame implements ActionListener {
     private ExerciseLog exerciseLog;
     private JButton saveButton;
@@ -51,7 +50,9 @@ public class ExerciseTrackerGUI extends JFrame implements ActionListener {
     private JFrame frame;
     private JPanel panel;
 
-
+    // Constructor
+    // EFFECTS: setup exercise log, json writer/reader and JFrame panel. Creates an initial state of GUI by configuring
+    // layout of buttons. Set default home image and buttons. Calls helper methods.
     public ExerciseTrackerGUI() {
         exerciseLog = new ExerciseLog();
         jsonWriter = new JsonWriter(JSON_STORE);
@@ -69,7 +70,7 @@ public class ExerciseTrackerGUI extends JFrame implements ActionListener {
         panel.add(homeDisplay);
         panel.add(message);
 
-        setUpTextFields();
+        setUpMinutesAndSportFields();
         setUpButtons();
 
         frame.add(panel, BorderLayout.CENTER);
@@ -80,13 +81,14 @@ public class ExerciseTrackerGUI extends JFrame implements ActionListener {
         frame.setVisible(true);
     }
 
-
-    private void setUpDropdownList() {
-        sportMenu = new JComboBox(availableSportsToArray());
-        sportMenu.setSelectedIndex(0);
-        sportMenu.addActionListener(this);
-        panel.add(sportMenu);
-    }
+    // MODIFIES: this
+    // EFFECTS: creates dropdown list of available sports from String array of sport names.
+//    private void setUpDropdownList() {
+//        sportMenu = new JComboBox(availableSportsToArray());
+//        sportMenu.setSelectedIndex(0);
+//        sportMenu.addActionListener(this);
+//        panel.add(sportMenu);
+//    }
 
 //    private String availableSportsToString() {
 //        StringBuilder stringBuilder = new StringBuilder();
@@ -96,6 +98,7 @@ public class ExerciseTrackerGUI extends JFrame implements ActionListener {
 //        return stringBuilder.toString();
 //    }
 
+//    EFFECTS: creates a String array that contains name of available sports in the exercise log.
     private String[] availableSportsToArray() {
         List<Sport> sportList = exerciseLog.getSportList();
         int size = sportList.size();
@@ -106,19 +109,28 @@ public class ExerciseTrackerGUI extends JFrame implements ActionListener {
         return array;
     }
 
-    private void setUpTextFields() {
+    // MODIFIES: this
+    // EFFECTS: creates time text field and sports drop down list, and add them to panel.
+    private void setUpMinutesAndSportFields() {
         minutesLabel = new JLabel(minutesString);
         sportLabel = new JLabel(sportString);
         minutesField = new JFormattedTextField();
         minutesField.setBounds(10, 50, 80, 25);
 
         panel.add(sportLabel);
-        setUpDropdownList();
+
+        // sets up drop down list
+        sportMenu = new JComboBox(availableSportsToArray());
+        sportMenu.setSelectedIndex(0);
+        sportMenu.addActionListener(this);
+        panel.add(sportMenu);
 
         panel.add(minutesLabel);
         panel.add(minutesField);
     }
 
+    // MODIFIES: this
+    // EFFECTS: instantiates ImageIcons with source files.
     private void setUpImageIcons() {
         imageSave = new ImageIcon(getClass().getResource("./images/save_10.png"));
         imageLoad = new ImageIcon(getClass().getResource("./images/load_10.png"));
@@ -128,9 +140,9 @@ public class ExerciseTrackerGUI extends JFrame implements ActionListener {
 
     }
 
+    // MODIFIES: this
+    // EFFECTS: instantiates all the buttons(save, load, history, log) that will be used in GUI, and adds them to panel.
     private void setUpButtons() {
-
-
         saveButton = new JButton("Save to file", imageSave);
 //        saveButton.setVerticalTextPosition(AbstractButton.CENTER);
 //        saveButton.setHorizontalTextPosition(AbstractButton.LEADING); //aka LEFT, for left-to-right locales
@@ -162,6 +174,8 @@ public class ExerciseTrackerGUI extends JFrame implements ActionListener {
 
 
     // process a button click
+    // EFFECTS: calls helper methods depending on the task this GUI needs to handle. If data was loaded, save button
+    // will be available to use.
     @Override
     public void actionPerformed(ActionEvent e) {
         String actionCommand = e.getActionCommand();
@@ -178,17 +192,19 @@ public class ExerciseTrackerGUI extends JFrame implements ActionListener {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates a table for data(all the logs of user), and displays it in pop-up window;
+    // displays homeDisplay and message to user.
     private void showHistory() {
         String[][] data = generateDataArray();
         String[] columnNames = { "Sport", "Time(minutes)"};
 
         historyTable = new JTable(data, columnNames);
         JOptionPane.showMessageDialog(panel, new JScrollPane(historyTable));
-//        homeDisplay.setIcon(imageHome);
-//        message.setText("Hello. Let's get started.");
         setHomeDisplayAndMessage(imageHome, "Hello. Let's get started.");
     }
 
+    // EFFECTS: returns array that contains all the logs of user so that it can be used in showHistory() method.
     private String[][] generateDataArray() {
         int row = exerciseLog.getExercises().size();
         List<Exercise> exercises = exerciseLog.getExercises();
@@ -203,6 +219,11 @@ public class ExerciseTrackerGUI extends JFrame implements ActionListener {
         return array;
     }
 
+    // MODIFIES: this
+    // EFFECTS: get data typed/selected in minutesField and sportMenu when Log button is clicked. If non-integer value
+    // or non-positive integer was entered, tells so to user by message and set homeDisplay to default.
+    // If data was valid, log it in the exerciseLog, and show some message and change homeDisplay to inform user.
+    // Regardless of validity of input in minutesField, clears the input in the field for clarity.
     private void logTheExercise() {
         String sportName = (String) sportMenu.getSelectedItem();
         String minutesInString = minutesField.getText();
@@ -213,8 +234,6 @@ public class ExerciseTrackerGUI extends JFrame implements ActionListener {
                 minutesField.setValue("");
                 JOptionPane.showMessageDialog(panel, "Time must be positive");
                 setHomeDisplayAndMessage(imageHome, "Time must be positive.");
-//                message.setText("Time must be positive.");
-//                homeDisplay.setIcon(imageHome);
             } else {
                 Exercise ex = new Exercise(minutes, sportName);
                 exerciseLog.logExercise(ex);
@@ -226,15 +245,11 @@ public class ExerciseTrackerGUI extends JFrame implements ActionListener {
 
                 // I need to show graph or image or sth here.
                 // Maybe depending on time, change message, graphics?
-//                homeDisplay.setIcon(imageWater);
-//                message.setText("Nice work! Stay hydrated too!");
                 setHomeDisplayAndMessage(imageWater, "Nice work! Stay hydrated too!");
             }
         } catch (NumberFormatException e) {
             minutesField.setValue("");
             JOptionPane.showMessageDialog(panel, "Time must be an integer");
-//            message.setText("Time must be an integer.");
-//            homeDisplay.setIcon(imageHome);
             setHomeDisplayAndMessage(imageHome, "Time must be an integer.");
         }
     }
@@ -246,6 +261,9 @@ public class ExerciseTrackerGUI extends JFrame implements ActionListener {
         homeDisplay.setIcon(imageIcon);
     }
 
+    // MODIFIES: this
+    // EFFECTS: reads data stored in json file to retrieve the state of exerciseLog. After it is loaded, shows some
+    // message and change homeDisplay to notify user. If it is not successful, notify user by message.
     private void loadFromFile() {
         try {
             exerciseLog = jsonReader.read();
@@ -254,23 +272,19 @@ public class ExerciseTrackerGUI extends JFrame implements ActionListener {
 
             setHomeDisplayAndMessage(imageBicep,
                     "<html>Your past progress has been loaded from file. <br/> Let's get started! </html>");
-//            homeDisplay.setIcon(imageBicep);
-//            message.setText("<html>Your past progress has been loaded from file. <br/> Let's get started! </html>");
         } catch (IOException e) {
-//            System.out.println("Unable to read from file: " + JSON_STORE);
             setHomeDisplayAndMessage(imageHome, "Unable to read from file: " + JSON_STORE);
-//            message.setText("Unable to read from file: " + JSON_STORE);
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: save the state of exerciseLog into file in json format. Inform user if it's successful by message and
+    // home display; show message otherwise.
     private void saveToFile() {
         try {
             jsonWriter.open();
             jsonWriter.write(exerciseLog);
             jsonWriter.close();
-//            System.out.println("Saved your exercise log to " + JSON_STORE);
-//            message.setText("Saved your progress! ");
-//            homeDisplay.setIcon(imageHome);
             setHomeDisplayAndMessage(imageHome, "Saved your progress! ");
         } catch (FileNotFoundException e) {
             System.out.println("Unable to write to the file: " + JSON_STORE);
