@@ -72,7 +72,6 @@ public class ExerciseTrackerGUI extends JFrame implements ActionListener {
         setUpTextFields();
         setUpButtons();
 
-
         frame.add(panel, BorderLayout.CENTER);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setTitle("Exercise Tracker");
@@ -82,7 +81,6 @@ public class ExerciseTrackerGUI extends JFrame implements ActionListener {
     }
 
 
-
     private void setUpDropdownList() {
         sportMenu = new JComboBox(availableSportsToArray());
         sportMenu.setSelectedIndex(0);
@@ -90,13 +88,13 @@ public class ExerciseTrackerGUI extends JFrame implements ActionListener {
         panel.add(sportMenu);
     }
 
-    private String availableSportsToString() {
-        StringBuilder stringBuilder = new StringBuilder();
-        for (Sport s: exerciseLog.getSportList()) {
-            stringBuilder.append(s.getName() + "  ");
-        }
-        return stringBuilder.toString();
-    }
+//    private String availableSportsToString() {
+//        StringBuilder stringBuilder = new StringBuilder();
+//        for (Sport s: exerciseLog.getSportList()) {
+//            stringBuilder.append(s.getName() + "  ");
+//        }
+//        return stringBuilder.toString();
+//    }
 
     private String[] availableSportsToArray() {
         List<Sport> sportList = exerciseLog.getSportList();
@@ -174,7 +172,6 @@ public class ExerciseTrackerGUI extends JFrame implements ActionListener {
             saveButton.setEnabled(true);
             loadFromFile();
         } else if ("log".equals(actionCommand)) {
-//            saveButton.setEnabled(true);
             logTheExercise();
         } else if ("history".equals(actionCommand)) {
             showHistory();
@@ -183,14 +180,13 @@ public class ExerciseTrackerGUI extends JFrame implements ActionListener {
 
     private void showHistory() {
         String[][] data = generateDataArray();
-
-        // Column Names
         String[] columnNames = { "Sport", "Time(minutes)"};
 
         historyTable = new JTable(data, columnNames);
         JOptionPane.showMessageDialog(panel, new JScrollPane(historyTable));
-        homeDisplay.setIcon(imageHome);
-        message.setText("Hello. Let's get started.");
+//        homeDisplay.setIcon(imageHome);
+//        message.setText("Hello. Let's get started.");
+        setHomeDisplayAndMessage(imageHome, "Hello. Let's get started.");
     }
 
     private String[][] generateDataArray() {
@@ -209,34 +205,45 @@ public class ExerciseTrackerGUI extends JFrame implements ActionListener {
 
     private void logTheExercise() {
         String sportName = (String) sportMenu.getSelectedItem();
-        System.out.println(sportName);
-        System.out.println("a");
-
         String minutesInString = minutesField.getText();
 
         try {
             int minutes = Integer.parseInt(minutesInString);
-            System.out.println(minutes);
-            Exercise ex = new Exercise(minutes, sportName);
-            exerciseLog.logExercise(ex);
-            JOptionPane.showMessageDialog(panel,"successfully logged");
-            System.out.println("dev purpose: distance to goal == " + exerciseLog.distanceToGoal());
+            if (minutes <= 0) {
+                minutesField.setValue("");
+                JOptionPane.showMessageDialog(panel, "Time must be positive");
+                setHomeDisplayAndMessage(imageHome, "Time must be positive.");
+//                message.setText("Time must be positive.");
+//                homeDisplay.setIcon(imageHome);
+            } else {
+                Exercise ex = new Exercise(minutes, sportName);
+                exerciseLog.logExercise(ex);
+                JOptionPane.showMessageDialog(panel, "successfully logged");
+                System.out.println("dev purpose: distance to goal == " + exerciseLog.distanceToGoal());
 
-            minutesField.setValue("");
-            saveButton.setEnabled(true);
+                minutesField.setValue("");
+                saveButton.setEnabled(true);
 
-            // I need to show graph or image or sth here.
-            // Maybe depending on time, change message, graphics?
-            homeDisplay.setIcon(imageWater);
-            message.setText("Nice work! Stay hydrated too!");
-
+                // I need to show graph or image or sth here.
+                // Maybe depending on time, change message, graphics?
+//                homeDisplay.setIcon(imageWater);
+//                message.setText("Nice work! Stay hydrated too!");
+                setHomeDisplayAndMessage(imageWater, "Nice work! Stay hydrated too!");
+            }
         } catch (NumberFormatException e) {
             minutesField.setValue("");
-            JOptionPane.showMessageDialog(panel, "minutes must be an integer");
-//            update.setText("minutes must be an integer");
-            message.setText("Time must be an integer.");
-            homeDisplay.setIcon(imageHome);
+            JOptionPane.showMessageDialog(panel, "Time must be an integer");
+//            message.setText("Time must be an integer.");
+//            homeDisplay.setIcon(imageHome);
+            setHomeDisplayAndMessage(imageHome, "Time must be an integer.");
         }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: set homeDisplay and message to the passed arguments.
+    private void setHomeDisplayAndMessage(ImageIcon imageIcon, String msg) {
+        message.setText(msg);
+        homeDisplay.setIcon(imageIcon);
     }
 
     private void loadFromFile() {
@@ -245,11 +252,14 @@ public class ExerciseTrackerGUI extends JFrame implements ActionListener {
             System.out.println("Loaded your exercise log from " + JSON_STORE);
             System.out.println(exerciseLog.distanceToGoal());
 
-            homeDisplay.setIcon(imageBicep);
-            message.setText("<html>Your past progress has been loaded from file. <br/> Let's get started! </html>");
+            setHomeDisplayAndMessage(imageBicep,
+                    "<html>Your past progress has been loaded from file. <br/> Let's get started! </html>");
+//            homeDisplay.setIcon(imageBicep);
+//            message.setText("<html>Your past progress has been loaded from file. <br/> Let's get started! </html>");
         } catch (IOException e) {
-            System.out.println("Unable to read from file: " + JSON_STORE);
-            message.setText("Unable to read from file: " + JSON_STORE);
+//            System.out.println("Unable to read from file: " + JSON_STORE);
+            setHomeDisplayAndMessage(imageHome, "Unable to read from file: " + JSON_STORE);
+//            message.setText("Unable to read from file: " + JSON_STORE);
         }
     }
 
@@ -258,9 +268,10 @@ public class ExerciseTrackerGUI extends JFrame implements ActionListener {
             jsonWriter.open();
             jsonWriter.write(exerciseLog);
             jsonWriter.close();
-            System.out.println("Saved your exercise log to " + JSON_STORE);
-            message.setText("Saved your progress! ");
-            homeDisplay.setIcon(imageHome);
+//            System.out.println("Saved your exercise log to " + JSON_STORE);
+//            message.setText("Saved your progress! ");
+//            homeDisplay.setIcon(imageHome);
+            setHomeDisplayAndMessage(imageHome, "Saved your progress! ");
         } catch (FileNotFoundException e) {
             System.out.println("Unable to write to the file: " + JSON_STORE);
         }
