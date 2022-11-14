@@ -1,3 +1,6 @@
+// Citation: Some code for buttons are from this demo.
+// https://docs.oracle.com/javase/tutorial/uiswing/examples/zipfiles/components-ButtonDemoProject.zip
+
 package ui;
 
 import model.Exercise;
@@ -17,7 +20,7 @@ import java.io.IOException;
 import java.util.List;
 
 
-// class that takes care of GUI.
+// class that builds GUI for ExerciseTracker.
 public class ExerciseTrackerGUI extends JFrame implements ActionListener {
     private ExerciseLog exerciseLog;
     private JButton saveButton;
@@ -80,23 +83,6 @@ public class ExerciseTrackerGUI extends JFrame implements ActionListener {
         frame.pack();
         frame.setVisible(true);
     }
-
-    // MODIFIES: this
-    // EFFECTS: creates dropdown list of available sports from String array of sport names.
-//    private void setUpDropdownList() {
-//        sportMenu = new JComboBox(availableSportsToArray());
-//        sportMenu.setSelectedIndex(0);
-//        sportMenu.addActionListener(this);
-//        panel.add(sportMenu);
-//    }
-
-//    private String availableSportsToString() {
-//        StringBuilder stringBuilder = new StringBuilder();
-//        for (Sport s: exerciseLog.getSportList()) {
-//            stringBuilder.append(s.getName() + "  ");
-//        }
-//        return stringBuilder.toString();
-//    }
 
 //    EFFECTS: creates a String array that contains name of available sports in the exercise log.
     private String[] availableSportsToArray() {

@@ -3,15 +3,15 @@
     "exercises": [
         {
             "activity": "running",
-            "time": 10
+            "time": 12
         },
         {
-            "activity": "running",
-            "time": 1
+            "activity": "swimming",
+            "time": 2
         },
         {
-            "activity": "running",
-            "time": 1
+            "activity": "cycling",
+            "time": 9
         }
     ],
     "sportList": [
@@ -21,11 +21,11 @@
         },
         {
             "name": "swimming",
-            "time": 0
+            "time": 2
         },
         {
             "name": "cycling",
-            "time": 0
+            "time": 9
         }
     ]
 }
