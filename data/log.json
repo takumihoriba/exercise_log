@@ -3,29 +3,33 @@
     "exercises": [
         {
             "activity": "running",
-            "time": 12
+            "time": 5
+        },
+        {
+            "activity": "swimming",
+            "time": 23
+        },
+        {
+            "activity": "running",
+            "time": 76
         },
         {
             "activity": "swimming",
             "time": 2
-        },
-        {
-            "activity": "cycling",
-            "time": 9
         }
     ],
     "sportList": [
         {
             "name": "running",
-            "time": 12
+            "time": 81
         },
         {
             "name": "swimming",
-            "time": 2
+            "time": 25
         },
         {
             "name": "cycling",
-            "time": 9
+            "time": 0
         }
     ]
 }

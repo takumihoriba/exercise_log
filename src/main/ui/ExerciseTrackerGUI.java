@@ -20,7 +20,7 @@ import java.io.IOException;
 import java.util.List;
 
 
-// class that builds GUI for ExerciseTracker.
+// class that builds GUI for ExerciseLog.
 public class ExerciseTrackerGUI extends JFrame implements ActionListener {
     private ExerciseLog exerciseLog;
     private JButton saveButton;
@@ -277,7 +277,7 @@ public class ExerciseTrackerGUI extends JFrame implements ActionListener {
         }
     }
 
-    public static void main(String[] args) {
-        ExerciseTrackerGUI gui = new ExerciseTrackerGUI();
-    }
+//    public static void main(String[] args) {
+//        ExerciseTrackerGUI gui = new ExerciseTrackerGUI();
+//    }
 }
