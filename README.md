@@ -19,7 +19,7 @@ In this project:
 
 # Instructions for Grader
 
-- You can generate the first required event related to adding exercises you did to a exerciseLog by clicking the "Log your exercise" button after selecting what you did and typing how long you did.
+- You can generate the first required event related to adding exercises you did to a exerciseLog by ....TODO . 
 - You can generate the second required event related to adding exercises you did to a exerciseLog by clicking the "Show history" button to check what exercises you have done and how long you have spent on each instance of exercise.
 - You can locate my visual component by looking at buttons that have small icons and top-left corner of GUI. This part will show several images depending on the state of the exercise log. For example, if an exercise is logged, water bottle will be displayed to encourage hydration. If data is loaded from file, it will show a muscle icon to encourage starting exercise now. If logging is unsuccessful, history is shown or exercise log is saved to file, default image will be displayed. This display works together with some text on the right to better inform user about state of this app.  
 - You can save the state of my application by clicking the button named "Save to file". Please note that this app doesn't prompt to ask you if you want to save when you try to close the app.

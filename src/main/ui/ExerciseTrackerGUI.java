@@ -27,6 +27,9 @@ public class ExerciseTrackerGUI extends JFrame implements ActionListener {
     private JButton loadButton;
     private JButton logButton;
     private JButton historyButton;
+    private JButton summaryButton;
+    private JButton goalButton;
+
     private JLabel sportLabel;
     private JLabel minutesLabel;
     private static String minutesString = "Time (minutes): ";
@@ -63,18 +66,18 @@ public class ExerciseTrackerGUI extends JFrame implements ActionListener {
 
         frame = new JFrame();
         panel = new JPanel();
-        panel.setBorder(BorderFactory.createEmptyBorder(30, 30, 10, 30));
-        panel.setLayout(new GridLayout(0, 2));
+        panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 10, 20));
+        panel.setLayout(new GridLayout(0, 4));
 
         setUpImageIcons();
 
         message = new JLabel("Welcome to Exercise Tracker!");
         homeDisplay = new JLabel(imageHome);
-        panel.add(homeDisplay);
-        panel.add(message);
 
         setUpMinutesAndSportFields();
         setUpButtons();
+
+        addComponentsToPanel();
 
         frame.add(panel, BorderLayout.CENTER);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -84,7 +87,28 @@ public class ExerciseTrackerGUI extends JFrame implements ActionListener {
         frame.setVisible(true);
     }
 
-//    EFFECTS: creates a String array that contains name of available sports in the exercise log.
+    private void addComponentsToPanel() {
+        panel.add(homeDisplay);
+        panel.add(message);
+
+        panel.add(saveButton);
+        panel.add(loadButton);
+
+        panel.add(sportLabel);
+        panel.add(sportMenu);
+
+        panel.add(minutesLabel);
+        panel.add(minutesField);
+
+        panel.add(goalButton);
+        panel.add(summaryButton);
+
+        panel.add(historyButton);
+        panel.add(logButton);
+
+    }
+
+    //    EFFECTS: creates a String array that contains name of available sports in the exercise log.
     private String[] availableSportsToArray() {
         List<Sport> sportList = exerciseLog.getSportList();
         int size = sportList.size();
@@ -103,16 +127,11 @@ public class ExerciseTrackerGUI extends JFrame implements ActionListener {
         minutesField = new JFormattedTextField();
         minutesField.setBounds(10, 50, 80, 25);
 
-        panel.add(sportLabel);
-
         // sets up drop down list
         sportMenu = new JComboBox(availableSportsToArray());
         sportMenu.setSelectedIndex(0);
         sportMenu.addActionListener(this);
-        panel.add(sportMenu);
 
-        panel.add(minutesLabel);
-        panel.add(minutesField);
     }
 
     // MODIFIES: this
@@ -123,7 +142,6 @@ public class ExerciseTrackerGUI extends JFrame implements ActionListener {
         imageHome = new ImageIcon(getClass().getResource("./images/home_1_20.png"));
         imageBicep = new ImageIcon(getClass().getResource("./images/bicep_1_20.png"));
         imageWater = new ImageIcon(getClass().getResource("./images/water_1_20.png"));
-
     }
 
     // MODIFIES: this
@@ -146,16 +164,18 @@ public class ExerciseTrackerGUI extends JFrame implements ActionListener {
         historyButton = new JButton("Show history");
         historyButton.setActionCommand("history");
 
+        summaryButton = new JButton("Show summary");
+        summaryButton.setActionCommand("summary");
+
+        goalButton = new JButton("Show goal");
+        goalButton.setActionCommand("goal");
+
         saveButton.addActionListener(this);
         loadButton.addActionListener(this);
         logButton.addActionListener(this);
         historyButton.addActionListener(this);
-
-        panel.add(historyButton);
-        panel.add(logButton);
-
-        panel.add(saveButton);
-        panel.add(loadButton);
+        summaryButton.addActionListener(this);
+        goalButton.addActionListener(this);
     }
 
 
@@ -175,7 +195,29 @@ public class ExerciseTrackerGUI extends JFrame implements ActionListener {
             logTheExercise();
         } else if ("history".equals(actionCommand)) {
             showHistory();
+        } else if ("summary".equals(actionCommand)) {
+            showSummary();
+        } else if ("goal".equals(actionCommand)) {
+            displayGoal();
         }
+    }
+
+    private void displayGoal() {
+        int goal = exerciseLog.getGoal();
+        int distanceToGoal = exerciseLog.distanceToGoal();
+
+        String s = "Goal: " + goal + " minutes. \n" + distanceToGoal + " minutes to goal!";
+        JOptionPane.showMessageDialog(panel, s, "Show goal", 1);
+    }
+
+    private void showSummary() {
+        String str = "You have done:";
+        List<Sport> sportList = exerciseLog.getSportList();
+        for (Sport s: sportList) {
+            str += "\n" + s.getName() + ": " + s.getTime() + " minutes(in total)";
+        }
+        JOptionPane.showMessageDialog(panel, str, "Your summary (total time per sport)", 1);
+        setHomeDisplayAndMessage(imageHome, "Hello. Let's get started.");
     }
 
     // MODIFIES: this
@@ -186,7 +228,8 @@ public class ExerciseTrackerGUI extends JFrame implements ActionListener {
         String[] columnNames = { "Sport", "Time(minutes)"};
 
         historyTable = new JTable(data, columnNames);
-        JOptionPane.showMessageDialog(panel, new JScrollPane(historyTable));
+        JOptionPane.showMessageDialog(panel, new JScrollPane(historyTable), "History", 1);
+
         setHomeDisplayAndMessage(imageHome, "Hello. Let's get started.");
     }
 
@@ -218,12 +261,12 @@ public class ExerciseTrackerGUI extends JFrame implements ActionListener {
             int minutes = Integer.parseInt(minutesInString);
             if (minutes <= 0) {
                 minutesField.setValue("");
-                JOptionPane.showMessageDialog(panel, "Time must be positive");
+                JOptionPane.showMessageDialog(panel, "Time must be positive", "Error", 0);
                 setHomeDisplayAndMessage(imageHome, "Time must be positive.");
             } else {
                 Exercise ex = new Exercise(minutes, sportName);
                 exerciseLog.logExercise(ex);
-                JOptionPane.showMessageDialog(panel, "successfully logged");
+//                JOptionPane.showMessageDialog(panel, "successfully logged");
                 System.out.println("dev purpose: distance to goal == " + exerciseLog.distanceToGoal());
 
                 minutesField.setValue("");
@@ -235,7 +278,7 @@ public class ExerciseTrackerGUI extends JFrame implements ActionListener {
             }
         } catch (NumberFormatException e) {
             minutesField.setValue("");
-            JOptionPane.showMessageDialog(panel, "Time must be an integer");
+            JOptionPane.showMessageDialog(panel, "Time must be an integer", "Error", 0);
             setHomeDisplayAndMessage(imageHome, "Time must be an integer.");
         }
     }
@@ -277,7 +320,4 @@ public class ExerciseTrackerGUI extends JFrame implements ActionListener {
         }
     }
 
-//    public static void main(String[] args) {
-//        ExerciseTrackerGUI gui = new ExerciseTrackerGUI();
-//    }
 }
