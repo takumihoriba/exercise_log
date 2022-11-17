@@ -87,6 +87,9 @@ public class ExerciseTrackerGUI extends JFrame implements ActionListener {
         frame.setVisible(true);
     }
 
+    // REQUIRES: All the components used (homeDisplay, saveButton, ...) are ready to be used.
+    // MODIFIES: this
+    // EFFECTS: adds components such as buttons, a text field, and images to the panel.
     private void addComponentsToPanel() {
         panel.add(homeDisplay);
         panel.add(message);
@@ -120,7 +123,7 @@ public class ExerciseTrackerGUI extends JFrame implements ActionListener {
     }
 
     // MODIFIES: this
-    // EFFECTS: creates time text field and sports drop down list, and add them to panel.
+    // EFFECTS: creates time text field and sports drop down list.
     private void setUpMinutesAndSportFields() {
         minutesLabel = new JLabel(minutesString);
         sportLabel = new JLabel(sportString);
@@ -145,7 +148,7 @@ public class ExerciseTrackerGUI extends JFrame implements ActionListener {
     }
 
     // MODIFIES: this
-    // EFFECTS: instantiates all the buttons(save, load, history, log) that will be used in GUI, and adds them to panel.
+    // EFFECTS: instantiates all the buttons(save, load, history, log) that will be used in GUI.
     private void setUpButtons() {
         saveButton = new JButton("Save to file", imageSave);
 //        saveButton.setVerticalTextPosition(AbstractButton.CENTER);
@@ -160,6 +163,7 @@ public class ExerciseTrackerGUI extends JFrame implements ActionListener {
 
         logButton = new JButton("Log your exercise");
         logButton.setActionCommand("log");
+        logButton.setForeground(Color.BLUE);
 
         historyButton = new JButton("Show history");
         historyButton.setActionCommand("history");
@@ -202,6 +206,8 @@ public class ExerciseTrackerGUI extends JFrame implements ActionListener {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: gets goal and distanceToGoal data from the exercise log and display it in dialog.
     private void displayGoal() {
         int goal = exerciseLog.getGoal();
         int distanceToGoal = exerciseLog.distanceToGoal();
@@ -210,6 +216,10 @@ public class ExerciseTrackerGUI extends JFrame implements ActionListener {
         JOptionPane.showMessageDialog(panel, s, "Show goal", 1);
     }
 
+
+    // MODIFIES: this
+    // EFFECTS: gets summary data of user from the exercise log and show it in dialog and set the home display to
+    // default.
     private void showSummary() {
         String str = "You have done:";
         List<Sport> sportList = exerciseLog.getSportList();
