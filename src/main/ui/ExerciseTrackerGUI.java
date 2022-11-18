@@ -111,7 +111,7 @@ public class ExerciseTrackerGUI extends JFrame implements ActionListener {
 
     }
 
-    //    EFFECTS: creates a String array that contains name of available sports in the exercise log.
+    // EFFECTS: creates a String array that contains name of available sports in the exercise log.
     private String[] availableSportsToArray() {
         List<Sport> sportList = exerciseLog.getSportList();
         int size = sportList.size();
