@@ -95,7 +95,7 @@ public class ExerciseTrackerGUI extends JFrame implements ActionListener {
 
     // REQUIRES: All the components used (homeDisplay, saveButton, ...) are ready to be used.
     // MODIFIES: this
-    // EFFECTS: adds components such as buttons, a text field, and images to the panel.
+    // EFFECTS: adds components such as buttons, a text field, a table for history, and images to the panel.
     private void addComponentsToPanel() {
         panel.add(homeDisplay);
         panel.add(message);
@@ -233,15 +233,17 @@ public class ExerciseTrackerGUI extends JFrame implements ActionListener {
         String str = "You have done:";
         List<Sport> sportList = exerciseLog.getSportList();
         for (Sport s: sportList) {
-            str += "\n" + s.getName() + ": " + s.getTime() + " minutes(in total)";
+            str += "\n" + s.getName() + ": " + s.getTime() + " minutes";
         }
         JOptionPane.showMessageDialog(panel, str, "Your summary (total time per sport)", 1);
         setHomeDisplayAndMessage(imageHome, "Hello. Let's get started.");
+
+
     }
 
     // MODIFIES: this
     // EFFECTS: creates a table for data(all the logs of user), and displays it in pop-up window;
-    // displays homeDisplay and message to user.
+    // displays homeDisplay and message to user; updates table in the main window.
     private void showHistory() {
 //        historyPanel.remove(histScroll);
 
