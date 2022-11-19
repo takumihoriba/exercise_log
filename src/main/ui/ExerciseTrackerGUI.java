@@ -56,6 +56,9 @@ public class ExerciseTrackerGUI extends JFrame implements ActionListener {
     private JFrame frame;
     private JPanel panel;
 
+    private JScrollPane histScroll;
+    private JTable histTable2;
+
     // Constructor
     // EFFECTS: setup exercise log, json writer/reader and JFrame panel. Creates an initial state of GUI by configuring
     // layout of buttons. Set default home image and buttons. Calls helper methods.
@@ -79,12 +82,15 @@ public class ExerciseTrackerGUI extends JFrame implements ActionListener {
 
         addComponentsToPanel();
 
+        panel.setPreferredSize(new Dimension(800,500));
+
         frame.add(panel, BorderLayout.CENTER);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setTitle("Exercise Tracker");
 
         frame.pack();
         frame.setVisible(true);
+
     }
 
     // REQUIRES: All the components used (homeDisplay, saveButton, ...) are ready to be used.
@@ -109,6 +115,9 @@ public class ExerciseTrackerGUI extends JFrame implements ActionListener {
         panel.add(historyButton);
         panel.add(logButton);
 
+        histTable2 = new JTable();
+        histScroll = new JScrollPane(histTable2);
+        panel.add(histScroll);
     }
 
     // EFFECTS: creates a String array that contains name of available sports in the exercise log.
@@ -234,13 +243,30 @@ public class ExerciseTrackerGUI extends JFrame implements ActionListener {
     // EFFECTS: creates a table for data(all the logs of user), and displays it in pop-up window;
     // displays homeDisplay and message to user.
     private void showHistory() {
+//        historyPanel.remove(histScroll);
+
         String[][] data = generateDataArray();
         String[] columnNames = { "Sport", "Time(minutes)"};
 
         historyTable = new JTable(data, columnNames);
         JOptionPane.showMessageDialog(panel, new JScrollPane(historyTable), "History", 1);
 
+////        historyPanel.add(histScroll);
+//
+//        historyPanel.add(new JScrollPane(historyTable));
+//
+////        newFrame.setSize(200,400);
+//        newFrame.pack();
+//        newFrame.setVisible(true);
+//        panel.remove(histTable2);
+        panel.remove(histScroll);
+
+        histTable2 = new JTable(data, columnNames);
+        histScroll = new JScrollPane(histTable2);
+        panel.add(histScroll);
+//        panel.add(histTable2);
         setHomeDisplayAndMessage(imageHome, "Hello. Let's get started.");
+
     }
 
     // EFFECTS: returns array that contains all the logs of user so that it can be used in showHistory() method.
@@ -277,7 +303,7 @@ public class ExerciseTrackerGUI extends JFrame implements ActionListener {
                 Exercise ex = new Exercise(minutes, sportName);
                 exerciseLog.logExercise(ex);
 //                JOptionPane.showMessageDialog(panel, "successfully logged");
-                System.out.println("dev purpose: distance to goal == " + exerciseLog.distanceToGoal());
+//                System.out.println("dev purpose: distance to goal == " + exerciseLog.distanceToGoal());
 
                 minutesField.setValue("");
                 saveButton.setEnabled(true);

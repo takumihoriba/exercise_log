@@ -24,12 +24,36 @@
         {
             "activity": "swimming",
             "time": 9
+        },
+        {
+            "activity": "running",
+            "time": 21
+        },
+        {
+            "activity": "running",
+            "time": 2
+        },
+        {
+            "activity": "running",
+            "time": 2
+        },
+        {
+            "activity": "running",
+            "time": 1
+        },
+        {
+            "activity": "running",
+            "time": 2
+        },
+        {
+            "activity": "running",
+            "time": 2
         }
     ],
     "sportList": [
         {
             "name": "running",
-            "time": 81
+            "time": 111
         },
         {
             "name": "swimming",
