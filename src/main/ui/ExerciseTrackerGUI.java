@@ -282,9 +282,9 @@ public class ExerciseTrackerGUI extends JFrame implements ActionListener {
             // time col
             array[i][1] = Integer.toString(exercises.get(i).getTime());
         }
-
         return array;
     }
+    // Maybe move this to ExerciseLog class?
 
     // MODIFIES: this
     // EFFECTS: get data typed/selected in minutesField and sportMenu when Log button is clicked. If non-integer value
@@ -334,8 +334,8 @@ public class ExerciseTrackerGUI extends JFrame implements ActionListener {
     private void loadFromFile() {
         try {
             exerciseLog = jsonReader.read();
-            System.out.println("Loaded your exercise log from " + JSON_STORE);
-            System.out.println(exerciseLog.distanceToGoal());
+//            System.out.println("Loaded your exercise log from " + JSON_STORE);
+//            System.out.println(exerciseLog.distanceToGoal());
 
             setHomeDisplayAndMessage(imageBicep,
                     "<html>Your past progress has been loaded from file. <br/> Let's get started! </html>");
