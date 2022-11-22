@@ -3,6 +3,8 @@
 
 package ui;
 
+import model.Event;
+import model.EventLog;
 import model.Exercise;
 import model.ExerciseLog;
 import model.Sport;
@@ -15,6 +17,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
@@ -29,6 +33,7 @@ public class ExerciseTrackerGUI extends JFrame implements ActionListener {
     private JButton historyButton;
     private JButton summaryButton;
     private JButton goalButton;
+    private JButton recButton;
 
     private JLabel sportLabel;
     private JLabel minutesLabel;
@@ -85,12 +90,27 @@ public class ExerciseTrackerGUI extends JFrame implements ActionListener {
         panel.setPreferredSize(new Dimension(800,500));
 
         frame.add(panel, BorderLayout.CENTER);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setTitle("Exercise Tracker");
+        setUpClosingBehaviour();
 
+        frame.setTitle("Exercise Tracker");
         frame.pack();
         frame.setVisible(true);
+    }
 
+    // MODIFIES: this
+    // EFFECTS: defines behaviour when the window is closed. It will print the EventLog in console.
+    private void setUpClosingBehaviour() {
+        //        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                EventLog eventLog = EventLog.getInstance();
+                for (Event event: eventLog) {
+                    System.out.println(event.toString());
+                }
+                System.exit(0);
+            }
+        });
     }
 
     // REQUIRES: All the components used (homeDisplay, saveButton, ...) are ready to be used.
@@ -115,9 +135,13 @@ public class ExerciseTrackerGUI extends JFrame implements ActionListener {
         panel.add(historyButton);
         panel.add(logButton);
 
+        panel.add(recButton);
+
         histTable2 = new JTable();
         histScroll = new JScrollPane(histTable2);
         panel.add(histScroll);
+
+
     }
 
     // EFFECTS: creates a String array that contains name of available sports in the exercise log.
@@ -183,12 +207,16 @@ public class ExerciseTrackerGUI extends JFrame implements ActionListener {
         goalButton = new JButton("Show goal");
         goalButton.setActionCommand("goal");
 
+        recButton = new JButton("What should I do today?");
+        recButton.setActionCommand("recommend");
+
         saveButton.addActionListener(this);
         loadButton.addActionListener(this);
         logButton.addActionListener(this);
         historyButton.addActionListener(this);
         summaryButton.addActionListener(this);
         goalButton.addActionListener(this);
+        recButton.addActionListener(this);
     }
 
 
@@ -212,7 +240,14 @@ public class ExerciseTrackerGUI extends JFrame implements ActionListener {
             showSummary();
         } else if ("goal".equals(actionCommand)) {
             displayGoal();
+        } else if ("recommend".equals(actionCommand)) {
+            recommend();
         }
+    }
+
+    private void recommend() {
+        String rec = exerciseLog.recommendASport();
+        setHomeDisplayAndMessage(imageBicep, "How about " + rec + "?");
     }
 
     // MODIFIES: this

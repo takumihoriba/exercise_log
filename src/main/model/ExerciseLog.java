@@ -37,8 +37,8 @@ public class ExerciseLog implements Writable {
     public void logExercise(Exercise ex) {
         this.exercises.add(ex);
         calculateTimeBySport(ex);
-        EventLog.getInstance().logEvent(new Event("An exercise was logged: " + ex.getActivity() + "for "
-                + ex.getTime() + "minutes. "));
+        EventLog.getInstance().logEvent(new Event("An exercise was logged: " + ex.getActivity() + " for "
+                + ex.getTime() + " minutes."));
     }
 
     //EFFECTS: returns the sport that the user spend the shortest time on.
@@ -54,6 +54,7 @@ public class ExerciseLog implements Writable {
             }
         }
         String sport = sportList.get(minIdx).getName();
+        EventLog.getInstance().logEvent(new Event(sport + " was recommended."));
         return sport;
     }
 
@@ -75,6 +76,7 @@ public class ExerciseLog implements Writable {
         for (int i = 0; i < size; i++) {
             sum += exercises.get(i).getTime();
         }
+        EventLog.getInstance().logEvent(new Event("Viewed distance to goal."));
         return goal - sum;
     }
 
