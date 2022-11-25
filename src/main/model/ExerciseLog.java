@@ -33,7 +33,7 @@ public class ExerciseLog implements Writable {
     }
 
     // MODIFIES: this
-    // EFFECTS: add an Exercise object to the list exercises.
+    // EFFECTS: add an Exercise object to the list exercises. Logs this event to EventLog.
     public void logExercise(Exercise ex) {
         this.exercises.add(ex);
         calculateTimeBySport(ex);
@@ -43,6 +43,7 @@ public class ExerciseLog implements Writable {
 
     //EFFECTS: returns the sport that the user spend the shortest time on.
     // If multiple sports have the same time, the sport that appears earliest in the sports list will be selected.
+    // Logs this event to EventLog.
     public String recommendASport() {
         int min = this.goal;
         int minIdx = 0;
@@ -70,6 +71,7 @@ public class ExerciseLog implements Writable {
     }
 
     //EFFECTS: returns integer representing the difference between sum of all minutes(user already spent) and goal
+    // Logs this event to EventLog.
     public int distanceToGoal() {
         int sum = 0;
         int size = exercises.size();
