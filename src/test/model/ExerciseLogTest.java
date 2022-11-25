@@ -3,6 +3,8 @@ package model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Iterator;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 // Class to test ExerciseLog class
@@ -47,7 +49,6 @@ class ExerciseLogTest {
         exLog.logExercise(ex3);
         assertEquals(100, exLog.getExercises().get(0).getTime());
         assertEquals("cycling", exLog.getExercises().get(0).getActivity());
-
     }
 
     @Test
@@ -148,4 +149,40 @@ class ExerciseLogTest {
         assertTrue(exLog.addSport(s1));
         assertFalse(exLog.addSport(s2));
     }
-}
+
+    @Test
+    void testEventLogClear() {
+        EventLog.getInstance().clear();
+        assertEquals("Event log cleared.", EventLog.getInstance().iterator().next().getDescription());
+    }
+
+    @Test
+    void testEventLogLogExercise() {
+        exLog.logExercise(ex1);
+        Iterator<Event> it = EventLog.getInstance().iterator();
+        String desc = it.next().getDescription();
+        assertEquals( "An exercise was logged: running for 100 minutes.", desc);
+    }
+
+    @Test
+    void testEventLogDistanceToGoal() {
+        exLog.distanceToGoal();
+        Iterator<Event> it = EventLog.getInstance().iterator();
+        String desc = it.next().getDescription();
+        assertEquals( "Viewed distance to goal.", desc);
+    }
+
+    @Test
+    void testEventLogRecommendASport() {
+        exLog.logExercise(ex1);
+        exLog.logExercise(ex22);
+        exLog.logExercise(ex23);
+        exLog.recommendASport();
+
+        Iterator<Event> it = EventLog.getInstance().iterator();
+        it.next();
+        it.next();
+        it.next();
+        String desc = it.next().getDescription();
+        assertEquals( "running was recommended.", desc);
+    }}
