@@ -27,12 +27,31 @@ In this project:
 - There is another event related to adding exercises you did to a exerciseLog, which can be activated by clicking "Show goal" button. This will show the goal of user(which is set to 1000 minutes by default, and the GUI doesn't allow user to change it at this point), and how far the goal is.
 
 ## Phase 4: Task 2
-Sample output.
-// TODO ADD this output.
+
+Here is my sample output when the application was closed after following events occurred
+
+- log running of 12 minutes
+- click "show goal" button
+- click "what should I do?" button
+- log swimming of 23 minutes
+- log cycling of 2 minutes
+- close the application
+
+Wed Nov 30 10:24:57 PST 2022
+An exercise was logged: running for 12 minutes.
+Wed Nov 30 10:25:06 PST 2022
+Viewed distance to goal.
+Wed Nov 30 10:25:08 PST 2022
+swimming was recommended.
+Wed Nov 30 10:25:14 PST 2022
+An exercise was logged: swimming for 23 minutes.
+Wed Nov 30 10:25:20 PST 2022
+An exercise was logged: cycling for 2 minutes.
 
 ## Phase 4: Task 3
-If you had more time to work on the project, is there any refactoring that you would do to improve your design?
-// TODO NEED TO REWRITE
-- Separate ExerciseTrackerGUI class into smaller pieces to improve cohesion because this class has multiple responsibility. List several responsibilities.
-- Sport class is essentially a map. So I can make the code neater by converting into a HashMap.
-- For logging events, ExerciseLog should support functionalities that are used in GUI. For example, GUI has some helper methods to accomplish some work but due to this it was hard to implement event logging from model module. These helper methods should be a part of model because I can increase cohesion if GUI can focus just on tasks regarding GUI.
+
+- Separate ExerciseTrackerGUI class into smaller pieces to improve cohesion because this class has multiple responsibilities. For example, this class has buttons, drop-down list, a text field, images, a table, a JFrame and a Jpanel. Since each has its own specification and responsibility, it is better to separate these into classes if possible.
+- In addition to the above, there are some functionalities that are implemented only in GUI class instead of in the model package. These are some helper methods such as generating arrays for displaying added Xs in the program and it is only used once. However, to make my program robust when the model package deals with several kinds of data, I think there should be a separate class that deals with producing such arrays that will be used in GUI.
+- SportList in ExerciseLog is essentially a map since it stores the value(time for each sport) corresponding to key(sport). So it might make my code neater if I make use of convenient data structures such as HashMap that I learned after the implementation of Sport class.
+- Sometimes, the GUI class combines a few methods from the model package and the ui package to accomplish one task. But this makes it hard for EventLog to operate only within the model package because one call of a method in the model package doesn’t guarantee that it was called for a single task in GUI class. A method in exerciseLog class can be used to do multiple tasks in GUI, which makes it hard to log the Event inside the model package. Thus, I should refactor some code in model and ui package to have a single method in the model package that is responsible for a single task (eg show all the Xs) performed in the ui package.
+
