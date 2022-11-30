@@ -17,7 +17,7 @@ In this project:
 - As a user, I want to be able to load my exercise log from file.
 
 
-# Instructions for Grader
+## Instructions for Grader
 
 - You can generate the first required event related to adding exercises you did to a exerciseLog by clicking the "Show history" button to check what exercises you have done and how long you have spent on each instance of exercise. This will also update the table in the main panel. Without clicking this button, the table in the main panel stays the same.
 - You can generate the second required event related to adding exercises you did to a exerciseLog by clicking the "Show summary" button. GUI will show how much time was spent on each sport in total.
@@ -25,3 +25,14 @@ In this project:
 - You can save the state of my application by clicking the button named "Save to file". Please note that this app doesn't prompt to ask you if you want to save when you try to close the app.
 - You can reload the state of my application by clicking the button named "Load from file". Please note that this app doesn't prompt to ask you if you want to load when you start the app.
 - There is another event related to adding exercises you did to a exerciseLog, which can be activated by clicking "Show goal" button. This will show the goal of user(which is set to 1000 minutes by default, and the GUI doesn't allow user to change it at this point), and how far the goal is.
+
+## Phase 4: Task 2
+Sample output.
+// TODO ADD this output.
+
+## Phase 4: Task 3
+If you had more time to work on the project, is there any refactoring that you would do to improve your design?
+// TODO NEED TO REWRITE
+- Separate ExerciseTrackerGUI class into smaller pieces to improve cohesion because this class has multiple responsibility. List several responsibilities.
+- Sport class is essentially a map. So I can make the code neater by converting into a HashMap.
+- For logging events, ExerciseLog should support functionalities that are used in GUI. For example, GUI has some helper methods to accomplish some work but due to this it was hard to implement event logging from model module. These helper methods should be a part of model because I can increase cohesion if GUI can focus just on tasks regarding GUI.

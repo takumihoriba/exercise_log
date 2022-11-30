@@ -132,7 +132,7 @@ public class ExerciseTracker {
         System.out.println("\te -> exit this application");
     }
 
-    // EFFECTS: show the current progress of user by showing their goal and the distance to thier goal.
+    // EFFECTS: show the current progress of user by showing their goal and the distance to their goal.
     // Also prints out available sports as a reference
     public void progress() {
         System.out.println("Your current goal: " + log.getGoal());
