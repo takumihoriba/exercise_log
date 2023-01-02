@@ -17,7 +17,7 @@ In this project:
 - As a user, I want to be able to load my exercise log from file.
 
 
-## Instructions for Grader
+## Instructions
 
 - You can generate the first required event related to adding exercises you did to a exerciseLog by clicking the "Show history" button to check what exercises you have done and how long you have spent on each instance of exercise. This will also update the table in the main panel. Without clicking this button, the table in the main panel stays the same.
 - You can generate the second required event related to adding exercises you did to a exerciseLog by clicking the "Show summary" button. GUI will show how much time was spent on each sport in total.
@@ -26,7 +26,7 @@ In this project:
 - You can reload the state of my application by clicking the button named "Load from file". Please note that this app doesn't prompt to ask you if you want to load when you start the app.
 - There is another event related to adding exercises you did to a exerciseLog, which can be activated by clicking "Show goal" button. This will show the goal of user(which is set to 1000 minutes by default, and the GUI doesn't allow user to change it at this point), and how far the goal is.
 
-## Phase 4: Task 2
+## Event Log
 
 Here is my sample output when the application was closed after following events occurred
 
@@ -48,7 +48,7 @@ An exercise was logged: swimming for 23 minutes.
 Wed Nov 30 10:25:20 PST 2022
 An exercise was logged: cycling for 2 minutes.
 
-## Phase 4: Task 3
+## Possible improvements
 
 - Separate ExerciseTrackerGUI class into smaller pieces to improve cohesion because this class has multiple responsibilities. For example, this class has buttons, drop-down list, a text field, images, a table, a JFrame and a JPanel. Since each has its own specification and responsibility, it is better to separate these into classes if possible.
 - In addition to the above, there are some functionalities that are implemented only in GUI class instead of in the model package. These are some helper methods such as generating arrays for displaying added Xs (ie exercises) in the program, and it is only used once. However, to make my program robust when the model package deals with several kinds of data, I think there should be a separate class that deals with producing such arrays that will be used in GUI.
